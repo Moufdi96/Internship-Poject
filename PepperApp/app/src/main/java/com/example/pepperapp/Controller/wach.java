@@ -1,7 +1,10 @@
 package com.example.pepperapp.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
+import com.example.pepperproject.R;
 
 public class wach extends AppCompatActivity {
 

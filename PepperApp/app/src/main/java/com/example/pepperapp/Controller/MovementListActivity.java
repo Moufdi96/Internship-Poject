@@ -18,10 +18,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pepperapp.model.Category;
+import com.example.pepperapp.model.Movement;
+import com.example.pepperapp.model.MovementType;
+
 import com.example.pepperproject.R;
-import com.example.pepperproject.model.Category;
-import com.example.pepperproject.model.Movement;
-import com.example.pepperproject.model.MovementType;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Array;

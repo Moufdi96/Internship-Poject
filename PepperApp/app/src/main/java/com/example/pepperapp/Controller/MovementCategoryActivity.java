@@ -7,10 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import com.example.pepperapp.model.MovementType;
 import com.example.pepperproject.R;
-import com.example.pepperproject.model.Movement;
-import com.example.pepperproject.model.MovementType;
+
 
 public class MovementCategoryActivity extends AppCompatActivity {
 

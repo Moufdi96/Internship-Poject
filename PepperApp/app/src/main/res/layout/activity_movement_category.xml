@@ -6,7 +6,7 @@
     android:background="#FFFF"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Controller.MovementCategoryActivity">
+    tools:context="com.example.pepperapp.Controller.MovementCategoryActivity">
 
     <ImageButton
         android:id="@+id/back_button"
