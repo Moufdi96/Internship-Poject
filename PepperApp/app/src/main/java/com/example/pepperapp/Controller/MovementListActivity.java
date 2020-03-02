@@ -29,7 +29,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MovementListActivity extends AppCompatActivity {
-    private ListView mMovementListView;
+    private ListView mListView;
     private ListView mActivityListView;
     private Category mSelectedCategory;
     private ArrayList<Object> mMovementList;
@@ -40,11 +40,11 @@ public class MovementListActivity extends AppCompatActivity {
     private ArrayAdapter<Object> mActivityArrayAdapter2;
     private FloatingActionButton mBAddToActivity;
     //private LinearLayout mLinearLayout;
-    private  TextView mDescription;
+    //private  TextView mDescription;
     private ImageButton mDeleteMovement;
     private ImageButton mEditMovement;
     private ImageButton mPlayMovement;
-    private  ImageButton mBBackToCategory;
+    //private  ImageButton mBBackToCategory;
     private Intent mChangeActivityIntent;
 
     @Override
@@ -53,20 +53,23 @@ public class MovementListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movement_list);
         Intent intent = this.getIntent();
 
-        this.mMovementListView = (ListView)findViewById(R.id.movement_list);
+        this.mListView = (ListView)findViewById(R.id.movement_list);
         this.mActivityListView = (ListView)findViewById(R.id.activity_list);
         this.mBAddToActivity = (FloatingActionButton)findViewById(R.id.fab);
         this.mDeleteMovement = (ImageButton)findViewById(R.id.delete_button);
         this.mPlayMovement = (ImageButton)findViewById(R.id.play_button);
         this.mEditMovement = (ImageButton)findViewById(R.id.edit_button);
         //this.mLinearLayout = (LinearLayout)findViewById(R.id.ll);
-        this.mDescription = (TextView)findViewById(R.id.description);
-        this.mBBackToCategory = (ImageButton)findViewById(R.id.back_button_category);
+        //this.mDescription = (TextView)findViewById(R.id.description);
+        //this.mBBackToCategory = (ImageButton)findViewById(R.id.back_button_category);
 
         this.mMovementList = new ArrayList<>();
         this.mActivityList = new ArrayList<>();
         this.mActivityArrayAdapter1 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mActivityList);
         this.mActivityArrayAdapter2 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_multiple_choice,mActivityList);
+        this.mMovementArrayAdapter1 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mMovementList);
+        this.mMovementArrayAdapter2 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_multiple_choice,mMovementList);
+
         this.mBAddToActivity.setBackgroundColor(Color.GRAY);
         this.mPlayMovement.setTag("play");
         this.mEditMovement.setTag("edit");
@@ -106,36 +109,34 @@ public class MovementListActivity extends AppCompatActivity {
 
 
 
-        this.mMovementArrayAdapter1 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mMovementList);
-        this.mMovementArrayAdapter2 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_multiple_choice,mMovementList);
 
         int index = 0;
-        this.mSelectedCategory.addMovementToCategory(new Movement(index,"movement 1",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 2",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 3",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 4",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 5",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 6",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 7",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 8",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 9",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 10",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 11",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 12",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 13",mSelectedCategory.getmCategoryType(),""));
-        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"movement 14",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index,  "..........................movement 1..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 2..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 3..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 4..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 5..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 6..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 7..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 8..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 9..........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 10.........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 11.........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 12.........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 13.........................",mSelectedCategory.getmCategoryType(),""));
+        this.mSelectedCategory.addMovementToCategory(new Movement(index++,"..........................movement 14.........................",mSelectedCategory.getmCategoryType(),""));
 
         for(int i = 0;i< this.mSelectedCategory.getmMovementList().size();i++)
             this.mMovementList.add(mSelectedCategory.getmMovementList().get(i).getmMovementName());
 
-        this.mActivityList.add("Create a new Activity");
-        this.mActivityList.add("Activity 1");
-        this.mActivityList.add("Activity 2");
-        this.mActivityList.add("Activity 3");
-        this.mActivityList.add("Activity 4");
-        this.mActivityList.add("Activity 5");
+        this.mActivityList.add("..............Create a new Activity..................");
+        this.mActivityList.add(".....................Activity 1......................");
+        this.mActivityList.add(".....................Activity 2......................");
+        this.mActivityList.add(".....................Activity 3......................");
+        this.mActivityList.add(".....................Activity 4......................");
+        this.mActivityList.add(".....................Activity 5......................");
 
-        this.mMovementListView.setAdapter(mMovementArrayAdapter1);
+        this.mListView.setAdapter(mMovementArrayAdapter1);
         this.mActivityListView.setVisibility(View.INVISIBLE);
         this.mActivityListView.setAdapter(mActivityArrayAdapter1);
         if (mMovementList.isEmpty()){
@@ -173,31 +174,43 @@ public class MovementListActivity extends AppCompatActivity {
             }
         });*/
 
-        mMovementListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            int index = -1;
+            boolean activityListDisplayed = false;
             @Override
-            public void onItemClick(final AdapterView<?> parent, final View view, final int position, long id) {
-                mBAddToActivity.show();
+            public void onItemClick(final AdapterView<?> parent, final View view,final int position, long id) {
+                if(!this.activityListDisplayed){
+                    mBAddToActivity.show();
+                }
+                else {
+                    mBAddToActivity.hide();
+                }
+                this.index = position;
                 mPlayMovement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            //int position = mMovementListView.getSelectedItemPosition();
-                            String tag = mPlayMovement.getTag().toString();
-                            if (tag == "play") {
-                            }//TODO
+                            Log.d("tag", "onItemClick: "+index);
+                            if(index > -1){
+                                index = -1;
+                                //int position = mMovementListView.getSelectedItemPosition();
+                                String tag = mPlayMovement.getTag().toString();
+                                if (tag == "play") {
+                                }//TODO
 
-                            if (tag == "confirm") {
-                                mPlayMovement.setTag("play");
-                                mActivityListView.setVisibility(View.INVISIBLE);
-                                mDescription.setVisibility(View.VISIBLE);
-                                mDeleteMovement.setVisibility(View.VISIBLE);
-                                mPlayMovement.setBackgroundResource(R.color.colorAccent);
-                                mEditMovement.setBackgroundResource(R.color.colorAccent);
-                                mPlayMovement.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                                mEditMovement.setImageResource(R.drawable.ic_mode_edit_black_24dp);
-                                mBAddToActivity.show();
-                                Toast.makeText(MovementListActivity.this, "The Movement has been added to the selected activity", Toast.LENGTH_LONG).show();
-
+                                if (tag == "confirm") {
+                                    activityListDisplayed = false;
+                                    mListView.setAdapter(mMovementArrayAdapter1);
+                                    mPlayMovement.setTag("play");
+                                    //mActivityListView.setVisibility(View.INVISIBLE);
+                                    //mDescription.setVisibility(View.VISIBLE);
+                                    mDeleteMovement.setVisibility(View.VISIBLE);
+                                    mPlayMovement.setBackgroundResource(R.color.colorAccent);
+                                    mEditMovement.setBackgroundResource(R.color.colorAccent);
+                                    mPlayMovement.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                                    mEditMovement.setImageResource(R.drawable.ic_mode_edit_black_24dp);
+                                    Toast.makeText(MovementListActivity.this, "The Movement has been added to the selected activity", Toast.LENGTH_LONG).show();
+                                }
                             }
                         } catch (Exception e) {
                             Toast.makeText(MovementListActivity.this, "No Movement left to delete", Toast.LENGTH_LONG).show();
@@ -209,23 +222,24 @@ public class MovementListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
+                            index = -1;
                             //int position = mMovementListView.getSelectedItemPosition();
                             String tag = mEditMovement.getTag().toString();
                             if (tag == "edit") {
                             } // TODO
 
                             if (tag == "cancel") {
+                                activityListDisplayed = false;
+                                mListView.setAdapter(mMovementArrayAdapter1);
                                 mEditMovement.setTag("edit");
                                 mActivityListView.setVisibility(View.INVISIBLE);
-                                mDescription.setVisibility(View.VISIBLE);
+                                //mDescription.setVisibility(View.VISIBLE);
                                 mDeleteMovement.setVisibility(View.VISIBLE);
                                 mPlayMovement.setBackgroundResource(R.color.colorAccent);
                                 mEditMovement.setBackgroundResource(R.color.colorAccent);
                                 mEditMovement.setImageResource(R.drawable.ic_mode_edit_black_24dp);
                                 mPlayMovement.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                                mBAddToActivity.show();
                                 //Toast.makeText(MovementListActivity.this,"The Movement has been added to the selected activity",Toast.LENGTH_LONG).show();
-
                             }
                         } catch (Exception e) {
                             Toast.makeText(MovementListActivity.this, "No Movement left to edit", Toast.LENGTH_LONG).show();
@@ -238,6 +252,7 @@ public class MovementListActivity extends AppCompatActivity {
                 mDeleteMovement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        index =-1;
                         if (!mMovementList.isEmpty()) {
                             mMovementList.remove(position);
                             mMovementArrayAdapter1.notifyDataSetChanged();
@@ -247,28 +262,32 @@ public class MovementListActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+                mBAddToActivity.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        index = -1;
+                        activityListDisplayed = true;
+                        mListView.setAdapter(mActivityArrayAdapter1);
+                        //mDescription.setVisibility(View.INVISIBLE);
+                        //mActivityListView.setVisibility(View.VISIBLE);
+                        mDeleteMovement.setVisibility(View.INVISIBLE);
+                        mEditMovement.setTag("cancel");
+                        mPlayMovement.setTag("confirm");
+                        mPlayMovement.setBackgroundColor(Color.TRANSPARENT);
+                        mEditMovement.setBackgroundColor(Color.TRANSPARENT);
+                        mPlayMovement.setImageResource(R.drawable.ic_done_black_40dp);
+                        mEditMovement.setImageResource(R.drawable.ic_close_black_24dp);
+                        mBAddToActivity.hide();
+
+                    }
+                });
             }
         });
 
 
-        this.mBAddToActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDescription.setVisibility(View.INVISIBLE);
-                mActivityListView.setVisibility(View.VISIBLE);
-                mDeleteMovement.setVisibility(View.INVISIBLE);
-                mEditMovement.setTag("cancel");
-                mPlayMovement.setTag("confirm");
-                mPlayMovement.setBackgroundColor(Color.TRANSPARENT);
-                mEditMovement.setBackgroundColor(Color.TRANSPARENT);
-                mPlayMovement.setImageResource(R.drawable.ic_done_black_40dp);
-                mEditMovement.setImageResource(R.drawable.ic_close_black_24dp);
-                mBAddToActivity.hide();
 
-            }
-        });
-
-        mActivityListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*mActivityListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mActivityListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -277,7 +296,7 @@ public class MovementListActivity extends AppCompatActivity {
 
                 return false;
             }
-        });
+        });*/
 
         mActivityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -285,13 +304,13 @@ public class MovementListActivity extends AppCompatActivity {
             }
         });
 
-        mBBackToCategory.setOnClickListener(new View.OnClickListener() {
+        /*mBBackToCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mChangeActivityIntent = new Intent(MovementListActivity.this,MovementCategoryActivity.class);
                 startActivity(mChangeActivityIntent);
             }
-        });
+        });*/
 
 
 

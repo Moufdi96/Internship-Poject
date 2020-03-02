@@ -29,234 +29,272 @@
             android:gravity="center"
             android:text="Please precise the exercise category"
             android:textColor="@color/colorAccent"
-            android:textSize="22dp"
+            android:textSize="15dp"
             android:textStyle="italic"></TextView>
 
 
-        <HorizontalScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal"
-            android:scrollbarSize="2dp"
+            android:scrollbarSize="5dp"
             android:scrollbarThumbHorizontal="@color/colorAccent"
             android:scrollbarStyle="outsideInset"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="35dp"
             android:scrollbarFadeDuration="1000"
             android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginRight="40dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
 
-                    <ImageButton
-                        android:id="@+id/b_neck"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/neck"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
-
-                    <TextView
-                        android:id="@+id/t_neck"
-                        android:layout_width="120dp"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Neck"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"></TextView>
+                        android:orientation="vertical"
+                        android:layout_marginRight="40dp">
+
+                        <ImageButton
+                            android:id="@+id/b_neck"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/neck"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+
+                        <TextView
+                            android:id="@+id/t_neck"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Neck"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp">
+
+                        <ImageButton
+                            android:id="@+id/b_hip"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/hip"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+
+                        <TextView
+                            android:id="@+id/t_hip"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Hip"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"></TextView>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
 
-                    <ImageButton
-                        android:id="@+id/b_hip"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/hip"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
-
-                    <TextView
-                        android:id="@+id/t_hip"
-                        android:layout_width="120dp"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Hip"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"></TextView>
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp">
+
+                        <ImageButton
+                            android:id="@+id/b_Elbow"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/elbow"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+
+                        <TextView
+                            android:id="@+id/t_Elbow"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Elbow"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp">
+
+                        <ImageButton
+                            android:id="@+id/b_shoulder"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/shoulder"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+
+                        <TextView
+                            android:id="@+id/t_shoulder"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Shoulder"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"
+                            ></TextView>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
 
-                    <ImageButton
-                        android:id="@+id/b_Elbow"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/elbow"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
-
-                    <TextView
-                        android:id="@+id/t_Elbow"
-                        android:layout_width="120dp"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Elbow"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"></TextView>
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+
+                        android:layout_marginRight="40dp">
+
+                        <ImageButton
+                            android:id="@+id/b_wrist"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/skeleton"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+
+                        <TextView
+                            android:id="@+id/t_wrist"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Wrist"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp">
+
+                        <ImageButton
+                            android:id="@+id/b_fist"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/strength"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+
+                        <TextView
+                            android:id="@+id/t_fist"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Fist"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"></TextView>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
 
-                    <ImageButton
-                        android:id="@+id/b_shoulder"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/shoulder"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
-
-                    <TextView
-                        android:id="@+id/t_shoulder"
-                        android:layout_width="120dp"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Shoulder"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"
-                        ></TextView>
-                </LinearLayout>
+                        android:orientation="vertical"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp">
+                        <ImageButton
+                            android:id="@+id/b_conbined"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:background="#FFF"
+                            android:src = "@drawable/stretching"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
 
-                    <ImageButton
-                        android:id="@+id/b_wrist"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/skeleton"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                        <TextView
+                            android:id="@+id/t_conbined"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Combined"
+                            android:textSize="15dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/colorAccent"></TextView>
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/t_wrist"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Wrist"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp">
-
-                    <ImageButton
-                        android:id="@+id/b_fist"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/strength"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
-
-                    <TextView
-                        android:id="@+id/t_fist"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Fist"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp">
-
-                    <ImageButton
-                        android:id="@+id/b_conbined"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:background="#FFF"
-                        android:src = "@drawable/stretching"
-                        android:padding="10dp"
-                        android:layout_gravity="center"
-                        android:outlineSpotShadowColor="@android:color/black"></ImageButton>
-
-                    <TextView
-                        android:id="@+id/t_conbined"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Combined"
-                        android:textSize="15dp"
-                        android:textStyle="italic"
-                        android:textColor="@color/colorAccent"></TextView>
                 </LinearLayout>
 
             </LinearLayout>
 
-        </HorizontalScrollView>
+        </ScrollView>
 
 
     </LinearLayout>
