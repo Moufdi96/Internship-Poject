@@ -52,17 +52,7 @@ public class MovementListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movement_list);
         Intent intent = this.getIntent();
-
-        this.mListView = (ListView)findViewById(R.id.movement_list);
-        this.mActivityListView = (ListView)findViewById(R.id.activity_list);
-        this.mBAddToActivity = (FloatingActionButton)findViewById(R.id.fab);
-        this.mDeleteMovement = (ImageButton)findViewById(R.id.delete_button);
-        this.mPlayMovement = (ImageButton)findViewById(R.id.play_button);
-        this.mEditMovement = (ImageButton)findViewById(R.id.edit_button);
-        //this.mLinearLayout = (LinearLayout)findViewById(R.id.ll);
-        //this.mDescription = (TextView)findViewById(R.id.description);
-        //this.mBBackToCategory = (ImageButton)findViewById(R.id.back_button_category);
-
+        this.layoutInit();
         this.mMovementList = new ArrayList<>();
         this.mActivityList = new ArrayList<>();
         this.mActivityArrayAdapter1 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mActivityList);
@@ -73,7 +63,6 @@ public class MovementListActivity extends AppCompatActivity {
         this.mBAddToActivity.setBackgroundColor(Color.GRAY);
         this.mPlayMovement.setTag("play");
         this.mEditMovement.setTag("edit");
-
         String retrieveIntentData = intent.getStringExtra("movement type");
         MovementType selectedCategoryType = MovementType.valueOf(retrieveIntentData);
         switch (selectedCategoryType){
@@ -106,9 +95,6 @@ public class MovementListActivity extends AppCompatActivity {
                 this.setTitle(mSelectedCategory.getmCategoryTitle());
                 break;
         }
-
-
-
 
         int index = 0;
         this.mSelectedCategory.addMovementToCategory(new Movement(index,  "..........................movement 1..........................",mSelectedCategory.getmCategoryType(),""));
@@ -342,6 +328,19 @@ public class MovementListActivity extends AppCompatActivity {
 */
 
 
+
+    }
+
+    public void layoutInit(){
+        this.mActivityListView = (ListView)findViewById(R.id.activity_list);
+        this.mListView = (ListView)findViewById(R.id.movement_list);
+        this.mBAddToActivity = (FloatingActionButton)findViewById(R.id.fab);
+        this.mDeleteMovement = (ImageButton)findViewById(R.id.delete_button);
+        this.mPlayMovement = (ImageButton)findViewById(R.id.play_button);
+        this.mEditMovement = (ImageButton)findViewById(R.id.edit_button);
+        //this.mLinearLayout = (LinearLayout)findViewById(R.id.ll);
+        //this.mDescription = (TextView)findViewById(R.id.description);
+        //this.mBBackToCategory = (ImageButton)findViewById(R.id.back_button_category);
 
     }
 }

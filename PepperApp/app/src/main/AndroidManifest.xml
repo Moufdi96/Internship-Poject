@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.pepperapp.Controller.wach"></activity>
 
         <activity
             android:name="com.example.pepperapp.Controller.MovementListActivity"

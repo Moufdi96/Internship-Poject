@@ -56,6 +56,7 @@ public class Category {
         mMovementList.add(new Movement(movementId,movementName,movementType,movementDescription));
     }
 
+
     /*public  ArrayList<Object> getMovementsNameList(){
         ArrayList<Object> movementsNameList = new ArrayList<>();
         for(int i = 0;i< this.mMovementList.size();i++){
