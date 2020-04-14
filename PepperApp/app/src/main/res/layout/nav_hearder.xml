@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="176dp"
+    android:background="@drawable/maxresdefault"
+    android:backgroundTintMode="screen"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingStart="15dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+</LinearLayout>
