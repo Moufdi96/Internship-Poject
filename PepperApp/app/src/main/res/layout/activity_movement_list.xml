@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="500dp"
+    tools:context="com.example.pepperapp.Controller.MovementListActivity">
+
+    <LinearLayout
+        android:id="@+id/list_movement_layout"
+        android:layout_width="450dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        //lsdkhuhgjfdskgsd
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <!--   android:src="@drawable/ic_mode_edit_black_24dp"-->
+            <ImageButton
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/colorAccent"></ImageButton>
+
+            <!--  android:src="@drawable/ic_delete_black_24dp"-->
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:background="@color/colorAccent"></ImageButton>
+            <!--  android:src="@drawable/ic_play_arrow_black_24dp"-->
+            <ImageButton
+                android:id="@+id/play_button"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:background="@color/colorAccent"></ImageButton>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/movement_list"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:choiceMode="multipleChoice"
+            android:listSelector="@color/colorAccent"></ListView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/list_movement_layout">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="10dp"
+                android:text="The description of the selected exercise is to be written here"
+                android:textSize="20dp"
+                android:background="#FFF8FA"
+                android:gravity="center"></TextView>
+
+        </LinearLayout>
+        <ListView
+            android:id="@+id/activity_list"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_marginTop="80dp"
+            android:choiceMode="singleChoice"
+            android:listSelector="@color/colorAccent"></ListView>
+    </RelativeLayout>
+
+    <!-- android:src = "@drawable/plus"-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        android:layout_margin="30dp">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+
+</RelativeLayout>

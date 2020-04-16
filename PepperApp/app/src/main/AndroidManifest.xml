@@ -10,8 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
-
+            android:name="com.example.pepperapp.Controller.MovementListActivity"
+            android:label="@string/title_activity_movement_list"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name="com.example.pepperapp.Controller.MovementCategoryActivity"
+            android:label="MovementCategoryActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name="com.example.pepperapp.Controller.MainActivity">  com.example.pepperapp.Controller
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

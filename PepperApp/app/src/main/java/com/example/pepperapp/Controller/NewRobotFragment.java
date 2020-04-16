@@ -1,4 +1,4 @@
-package com.example.pepperapp;
+package com.example.pepperapp.Controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,13 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class SettingsFragment extends Fragment{
-
+public class NewRobotFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.settings_fragment,container,false);
+        return inflater.inflate(R.layout.new_robot_fragment,container,false);
+
     }
+
 }
