@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
+    //ksdjbgkfdgbd
     private String mCategoryTitle;
     private MovementType mCategoryType;
     private List<Movement> mMovementList;

@@ -29,6 +29,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MovementListActivity extends AppCompatActivity {
+    //riiiiiiiiiiiiiiiiip
     private ListView mListView;
     private ListView mActivityListView;
     private Category mSelectedCategory;

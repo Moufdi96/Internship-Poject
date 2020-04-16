@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        //ksdjbgkfdgbd
         <activity
             android:name="com.example.pepperapp.Controller.MovementListActivity"
             android:label="@string/title_activity_movement_list"

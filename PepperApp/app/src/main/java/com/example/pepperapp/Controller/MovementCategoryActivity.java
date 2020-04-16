@@ -21,7 +21,7 @@ public class MovementCategoryActivity extends AppCompatActivity {
     private ImageButton mBElbow;
     private ImageButton mBCombined;
     private ImageButton mBBack;
-
+    //riiiiiiiiiip
     private TextView mTHip;
     private TextView mTShoulder;
     private TextView mTFist;
