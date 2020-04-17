@@ -10,4 +10,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Dialog" parent="Theme.AppCompat.Dialog"></style>
+        <color name="color">@color/colorAccent</color>
+
 </resources>
