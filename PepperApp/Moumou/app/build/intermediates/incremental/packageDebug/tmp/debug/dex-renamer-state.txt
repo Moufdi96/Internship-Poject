@@ -1,0 +1,7 @@
+#Thu Apr 09 20:17:56 CEST 2020
+base.0=/home/moufdi_taha/Github/Internship-Poject/PepperApp/Moumou/app/build/intermediates/dex/debug/mergeExtDexDebug/out/classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/home/moufdi_taha/Github/Internship-Poject/PepperApp/Moumou/app/build/intermediates/dex/debug/mergeProjectDexDebug/out/classes.dex
