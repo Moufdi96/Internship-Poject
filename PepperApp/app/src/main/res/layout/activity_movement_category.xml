@@ -66,13 +66,12 @@
                         android:orientation="vertical"
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/neck" -->
                         <ImageButton
                             android:id="@+id/b_neck"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
                             android:background="#FFF"
-
+                            android:src = "@drawable/neck"
                             android:padding="10dp"
                             android:layout_gravity="center"
                             android:outlineSpotShadowColor="@android:color/black"></ImageButton>
@@ -96,13 +95,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/hip" -->
                         <ImageButton
                             android:id="@+id/b_hip"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
                             android:background="#FFF"
                             android:padding="10dp"
+                            android:src = "@drawable/hip"
                             android:layout_gravity="center"
                             android:outlineSpotShadowColor="@android:color/black"></ImageButton>
 
@@ -134,11 +133,12 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/elbow" -->
+
                         <ImageButton
                             android:id="@+id/b_Elbow"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
+                            android:src = "@drawable/elbow"
                             android:background="#FFF"
                             android:padding="10dp"
                             android:layout_gravity="center"
@@ -163,13 +163,14 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/shoulder" -->
+
                         <ImageButton
                             android:id="@+id/b_shoulder"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
                             android:background="#FFF"
                             android:padding="10dp"
+                            android:src = "@drawable/shoulder"
                             android:layout_gravity="center"
                             android:outlineSpotShadowColor="@android:color/black"></ImageButton>
 
@@ -203,13 +204,13 @@
 
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/skeleton" -->
                         <ImageButton
                             android:id="@+id/b_wrist"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
                             android:background="#FFF"
                             android:padding="10dp"
+                            android:src = "@drawable/skeleton"
                             android:layout_gravity="center"
                             android:outlineSpotShadowColor="@android:color/black"></ImageButton>
 
@@ -232,13 +233,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/strength" -->
                         <ImageButton
                             android:id="@+id/b_fist"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
                             android:background="#FFF"
                             android:padding="10dp"
+                            android:src = "@drawable/strength"
                             android:layout_gravity="center"
                             android:outlineSpotShadowColor="@android:color/black"></ImageButton>
 
@@ -271,7 +272,6 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp">
 
-                        <!--  android:src = "@drawable/stretching" -->
                         <ImageButton
                             android:id="@+id/b_conbined"
                             android:layout_width="120dp"
@@ -287,6 +287,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:src = "@drawable/stretching"
                             android:text="Combined"
                             android:textSize="15dp"
                             android:textStyle="italic"
