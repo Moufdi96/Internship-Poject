@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#FFFF"
     android:layout_height="match_parent"
+    android:background="#FFFF"
     android:orientation="vertical"
     tools:context="com.example.pepperapp.Controller.MovementCategoryActivity">
-    //ksdjkfbdgdb
 
-    <!--  android:src = "@drawable/ic_keyboard_backspace_black_24dp" -->
+
     <ImageButton
 
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:background="#FFFF"
-        android:layout_margin="20dp"></ImageButton>
+        android:src="@drawable/ic_keyboard_backspace_black_24dp"></ImageButton>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -38,43 +38,43 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="horizontal"
-            android:scrollbarSize="5dp"
-            android:scrollbarThumbHorizontal="@color/colorAccent"
-            android:scrollbarStyle="outsideInset"
             android:layout_marginTop="35dp"
+            android:padding="20dp"
             android:scrollbarFadeDuration="1000"
-            android:padding="20dp">
+            android:scrollbarSize="5dp"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbarThumbHorizontal="@color/colorAccent"
+            android:scrollbars="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
                     android:layout_marginTop="30dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginRight="40dp">
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
 
                         <ImageButton
                             android:id="@+id/b_neck"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:background="#FFF"
-                            android:src = "@drawable/neck"
-                            android:padding="10dp"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"
+                            android:src="@drawable/neck"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_neck"
@@ -83,27 +83,27 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Neck"
+                            android:textColor="@color/colorAccent"
                             android:textSize="15dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/colorAccent"></TextView>
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="40dp">
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
 
                         <ImageButton
                             android:id="@+id/b_hip"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:background="#FFF"
-                            android:padding="10dp"
-                            android:src = "@drawable/hip"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"
+                            android:src="@drawable/hip"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_hip"
@@ -112,9 +112,9 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Hip"
+                            android:textColor="@color/colorAccent"
                             android:textSize="15dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/colorAccent"></TextView>
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -122,27 +122,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
                     android:layout_marginTop="30dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="40dp">
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
 
 
                         <ImageButton
                             android:id="@+id/b_Elbow"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:src = "@drawable/elbow"
-                            android:background="#FFF"
-                            android:padding="10dp"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"
+                            android:src="@drawable/elbow"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_Elbow"
@@ -151,28 +151,28 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Elbow"
+                            android:textColor="@color/colorAccent"
                             android:textSize="15dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/colorAccent"></TextView>
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="40dp">
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
 
 
                         <ImageButton
                             android:id="@+id/b_shoulder"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:background="#FFF"
-                            android:padding="10dp"
-                            android:src = "@drawable/shoulder"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"
+                            android:src="@drawable/shoulder"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_shoulder"
@@ -181,10 +181,9 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Shoulder"
-                            android:textSize="15dp"
-                            android:textStyle="italic"
                             android:textColor="@color/colorAccent"
-                            ></TextView>
+                            android:textSize="15dp"
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -192,27 +191,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
                     android:layout_marginTop="30dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
 
-                        android:layout_marginRight="40dp">
+                        android:orientation="vertical">
 
                         <ImageButton
                             android:id="@+id/b_wrist"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:background="#FFF"
-                            android:padding="10dp"
-                            android:src = "@drawable/skeleton"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"
+                            android:src="@drawable/skeleton"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_wrist"
@@ -221,27 +220,27 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Wrist"
+                            android:textColor="@color/colorAccent"
                             android:textSize="15dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/colorAccent"></TextView>
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="40dp">
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
 
                         <ImageButton
                             android:id="@+id/b_fist"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:background="#FFF"
-                            android:padding="10dp"
-                            android:src = "@drawable/strength"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"
+                            android:src="@drawable/strength"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_fist"
@@ -250,9 +249,9 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Fist"
+                            android:textColor="@color/colorAccent"
                             android:textSize="15dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/colorAccent"></TextView>
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -260,26 +259,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
                     android:layout_marginTop="30dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="30dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="40dp">
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
 
                         <ImageButton
                             android:id="@+id/b_conbined"
                             android:layout_width="120dp"
                             android:layout_height="100dp"
-                            android:background="#FFF"
-                            android:padding="10dp"
                             android:layout_gravity="center"
-                            android:outlineSpotShadowColor="@android:color/black"></ImageButton>
+                            android:background="#FFF"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:padding="10dp"></ImageButton>
 
                         <TextView
                             android:id="@+id/t_conbined"
@@ -287,11 +286,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:src = "@drawable/stretching"
+                            android:src="@drawable/stretching"
                             android:text="Combined"
+                            android:textColor="@color/colorAccent"
                             android:textSize="15dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/colorAccent"></TextView>
+                            android:textStyle="italic"></TextView>
                     </LinearLayout>
 
                 </LinearLayout>

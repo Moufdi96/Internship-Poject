@@ -22,7 +22,6 @@ public class MovementCategoryActivity extends AppCompatActivity {
     private ImageButton mBElbow;
     private ImageButton mBCombined;
     private ImageButton mBBack;
-    //riiiiiiiiiip
     private TextView mTHip;
     private TextView mTShoulder;
     private TextView mTFist;
@@ -122,8 +121,7 @@ public class MovementCategoryActivity extends AppCompatActivity {
         this.mBBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mChangeActivityIntent = new Intent(MovementCategoryActivity.this,MainActivity.class);
-                startActivity(mChangeActivityIntent);
+               onBackPressed();
             }
         });
     }

@@ -29,7 +29,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MovementListActivity extends AppCompatActivity {
-    //riiiiiiiiiiiiiiiiip
     private ListView mListView;
     private ListView mActivityListView;
     private Category mSelectedCategory;
@@ -194,8 +193,8 @@ public class MovementListActivity extends AppCompatActivity {
                                     mDeleteMovement.setVisibility(View.VISIBLE);
                                     mPlayMovement.setBackgroundResource(R.color.colorAccent);
                                     mEditMovement.setBackgroundResource(R.color.colorAccent);
-                                    //mPlayMovement.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                                    //mEditMovement.setImageResource(R.drawable.ic_mode_edit_black_24dp);
+                                    mPlayMovement.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                                    mEditMovement.setImageResource(R.drawable.ic_mode_edit_black_24dp);
                                     Toast.makeText(MovementListActivity.this, "The Movement has been added to the selected activity", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -263,8 +262,8 @@ public class MovementListActivity extends AppCompatActivity {
                         mPlayMovement.setTag("confirm");
                         mPlayMovement.setBackgroundColor(Color.TRANSPARENT);
                         mEditMovement.setBackgroundColor(Color.TRANSPARENT);
-                        //mPlayMovement.setImageResource(R.drawable.ic_done_black_40dp);
-                        //mEditMovement.setImageResource(R.drawable.ic_close_black_24dp);
+                        mPlayMovement.setImageResource(R.drawable.ic_done_black_40dp);
+                        mEditMovement.setImageResource(R.drawable.ic_close_black_24dp);
                         mBAddToActivity.hide();
 
                     }
