@@ -10,17 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.pepperapp.Controller.MovementCategoryActivity"
+            android:name=".Controller.MovementCategoryActivity"
             android:label="MovementCategoryActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
-            android:name="com.example.pepperapp.Controller.MovementListActivity"
+            android:name=".Controller.MovementListActivity"
             android:label="MovementListActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"></activity>
-        <activity
-            android:name="com.example.pepperapp.Controller.MainActivity">
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".Controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
