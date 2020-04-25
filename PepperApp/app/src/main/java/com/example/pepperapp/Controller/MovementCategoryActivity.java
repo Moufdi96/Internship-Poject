@@ -1,6 +1,7 @@
 package com.example.pepperapp.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MovementCategoryActivity extends AppCompatActivity {
     private TextView mTWrist;
     private TextView mTElbow;
     private TextView mTCombined;
+    private Toolbar mToolbar;
 
     private Intent mChangeActivityIntent;
 
@@ -37,6 +39,8 @@ public class MovementCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movement_category);
         this.setTitle("Exercise Categories");
+        this.mToolbar = findViewById(R.id.category_toolbar);
+        this.setSupportActionBar(this.mToolbar);
 
         this.mBHip = (ImageButton)findViewById(R.id.b_hip);
         this.mBWrist = (ImageButton)findViewById(R.id.b_wrist);
@@ -45,7 +49,6 @@ public class MovementCategoryActivity extends AppCompatActivity {
         this.mBElbow = (ImageButton)findViewById(R.id.b_Elbow);
         this.mBFist = (ImageButton)findViewById(R.id.b_fist);
         this.mBCombined = (ImageButton)findViewById(R.id.b_conbined);
-        this.mBBack = (ImageButton)findViewById(R.id.back_button); 
 
         this.mTHip = (TextView) findViewById(R.id.t_hip);
         this.mTShoulder = (TextView) findViewById(R.id.t_shoulder);
@@ -117,12 +120,6 @@ public class MovementCategoryActivity extends AppCompatActivity {
                 startActivity(mChangeActivityIntent);
             }
         });
-        
-        this.mBBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               onBackPressed();
-            }
-        });
+
     }
 }

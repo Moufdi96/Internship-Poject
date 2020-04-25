@@ -10,7 +10,7 @@ public class Activity {
     private String mActivityDescription;
     private List<Movement> mActivityMovements;
 
-    public Activity(String mActivityName, String mActivityDescription, List<Movement> mActivityMovements) {
+    public Activity(String mActivityName,List<Movement> mActivityMovements) {
         this.mActivityName = mActivityName;
         this.mActivityDescription = mActivityDescription;
         this.mActivityMovements = mActivityMovements;

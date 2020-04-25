@@ -117,9 +117,6 @@ public class ListMovementFragment extends Fragment {
                         if (!mMovementList.isEmpty()) {
                             mMovementList.remove(position);
                             mMovementArrayAdapter1.notifyDataSetChanged();
-                            if (mMovementList.isEmpty()) {
-                                mBAddToActivity.hide();
-                            }
                         }
                     }
                 });

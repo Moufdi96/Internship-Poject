@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Controller.ActivityListActivity"
+            android:label="ActivityListActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
             android:name=".Controller.MovementCategoryActivity"
             android:label="MovementCategoryActivity"
             android:theme="@style/AppTheme" />

@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if(getSupportFragmentManager().findFragmentById(R.id.fragment_container).getTag()=="newRobotFragment") {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ConnectToRobotFragment()).commit();
         } else {
             super.onBackPressed();
         }
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
             case R.id.add_robot:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewRobotFragment()).commit();
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConnectToRobotFragment()).commit();
                 break;
             case R.id.settings:
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();

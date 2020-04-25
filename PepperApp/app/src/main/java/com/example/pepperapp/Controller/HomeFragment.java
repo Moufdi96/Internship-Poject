@@ -25,11 +25,20 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.home_fragment,container,false);
         mExercise = mView.findViewById(R.id.movements);
+        mActivities = mView.findViewById(R.id.activities);
         mExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mMvtListActivity = new Intent(getActivity(),MovementCategoryActivity.class);
                 startActivity(mMvtListActivity);
+            }
+        });
+
+        mActivities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent avtListActivity = new Intent(getActivity(),ActivityListActivity.class);
+                startActivity(avtListActivity);
             }
         });
         return mView;
