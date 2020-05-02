@@ -3,13 +3,12 @@ package com.example.pepperapp.model;
 public class Robot {
     private String mRobotName;
     private String mRobotIPAddress;
-    private String Port;
-    //private int mId;
+    private String mRobotPort;
 
     public Robot(String mRobotName, String mRobotIPAddress, String port) {
         this.mRobotName = mRobotName;
         this.mRobotIPAddress = mRobotIPAddress;
-        Port = port;
+        this.mRobotPort = port;
     }
 
     public String getmRobotName() {
@@ -28,11 +27,11 @@ public class Robot {
         this.mRobotIPAddress = mRobotIPAddress;
     }
 
-    public String getPort() {
-        return Port;
+    public String getmRobotPort() {
+        return mRobotPort;
     }
 
-    public void setPort(String port) {
-        Port = port;
+    public void setmRobotPort(String port) {
+        this.mRobotPort = port;
     }
 }

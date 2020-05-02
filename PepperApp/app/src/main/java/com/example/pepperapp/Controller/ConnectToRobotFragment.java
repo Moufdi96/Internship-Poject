@@ -75,7 +75,13 @@ public class ConnectToRobotFragment extends Fragment {
         mRobotListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
+                if(index>0){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("selectedRobotPosition",position-1);
+                    EditRobotFragment editRobotFragment = new EditRobotFragment();
+                    editRobotFragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,editRobotFragment,"EditRobotFragment").commit();
+                }
                 return false;
             }
         });

@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if(getSupportFragmentManager().findFragmentById(R.id.fragment_container).getTag()=="newRobotFragment") {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ConnectToRobotFragment()).commit();
-        } else {
-            super.onBackPressed();
+        } else if(getSupportFragmentManager().findFragmentById(R.id.fragment_container).getTag()=="EditRobotFragment"){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ConnectToRobotFragment(),"ConnectToRobotFragment").commit();
         }
 
     }
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
             case R.id.add_robot:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConnectToRobotFragment()).commit();
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConnectToRobotFragment(),"ConnectToRobotFragment").commit();
                 break;
             case R.id.settings:
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
