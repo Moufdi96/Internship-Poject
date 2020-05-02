@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.pepperapp.R;
+import com.example.pepperapp.model.Robot;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+        mNavigationView.getMenu().getItem(1).setTitle("Connected to ");
         this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
     }
 
@@ -62,5 +67,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public Robot loadRobotPreference() {
+        Gson gson = new Gson();
+        SharedPreferences SharedPreferences = getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+        String json = SharedPreferences.getString("LAST_SELECTED_ROBOT", "");
+        Robot robot = gson.fromJson(json, Robot.class);
+        return robot;
     }
 }

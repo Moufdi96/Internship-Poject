@@ -4,6 +4,7 @@ public class Robot {
     private String mRobotName;
     private String mRobotIPAddress;
     private String Port;
+    //private int mId;
 
     public Robot(String mRobotName, String mRobotIPAddress, String port) {
         this.mRobotName = mRobotName;
