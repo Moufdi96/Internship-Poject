@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,18 +35,22 @@ public class ConnectToRobotFragment extends Fragment {
     private static final String LAST_SELECTED_ROBOT = "lastSelectedRobot";
     private View mView;
     private CardView mConnectButton;
+    private ImageButton mDeleteRobotButton;
+    private ImageButton mEditRobotInfoButton;
     private ListView mRobotListView;
     private ArrayAdapter<String> mRobotListAdapter;
     private SharedPreferences mSharedPreferences;
     private JsonParseRobotList mRobotList;
     private List<String> mListRobotNames;
-    int index = -1;
+    private int index = -1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mView = inflater.inflate(R.layout.robot_connection_fragment, container, false);
         this.mRobotListView = mView.findViewById(R.id.robot_list);
+        this.mDeleteRobotButton=mView.findViewById(R.id.delete_robot);
+        this.mEditRobotInfoButton=mView.findViewById(R.id.edit_robot_info);
         this.mConnectButton = mView.findViewById(R.id.connect_button);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         this.mListRobotNames = new ArrayList<>();
@@ -65,7 +70,6 @@ public class ConnectToRobotFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, int position, long id) {
-                index = position;
                 if (position == 0) {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewRobotFragment(), "newRobotFragment").commit();
                 }
@@ -75,14 +79,39 @@ public class ConnectToRobotFragment extends Fragment {
         mRobotListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if(index>0){
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("selectedRobotPosition",position-1);
-                    EditRobotFragment editRobotFragment = new EditRobotFragment();
-                    editRobotFragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,editRobotFragment,"EditRobotFragment").commit();
+                index = position;
+                if (position > 0) {
+                    mEditRobotInfoButton.setVisibility(View.VISIBLE);
+                    mDeleteRobotButton.setVisibility(View.VISIBLE);
+                    mView.findViewById(R.id.cardview1).setVisibility(View.VISIBLE);
+                    mView.findViewById(R.id.cardview2).setVisibility(View.VISIBLE);
                 }
                 return false;
+            }
+        });
+
+        mEditRobotInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("selectedRobotPosition", index - 1);
+                EditRobotFragment editRobotFragment = new EditRobotFragment();
+                editRobotFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, editRobotFragment, "EditRobotFragment").commit();
+            }
+        });
+
+        mDeleteRobotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mRobotList.getmRobotList().isEmpty()){
+                    mRobotList.getmRobotList().remove(index-1);
+                    mListRobotNames.remove(index);
+                    mRobotListAdapter.notifyDataSetChanged();
+                    mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
+                    //mEditRobotInfoButton.setVisibility(View.INVISIBLE);
+                    //mDeleteRobotButton.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -94,14 +123,12 @@ public class ConnectToRobotFragment extends Fragment {
                 } else if (index > 0) {
                     {
                         saveRobotPreference(mRobotList.getmRobotList().get(index - 1));
-                        Log.d("hhhhhhhhhhhhhhhhhhh", index + loadRobotPreference());
                     }
                 }
             }
         });
 
         return mView;
-
 
     }
 
