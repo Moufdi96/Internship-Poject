@@ -80,6 +80,7 @@ public class EditRobotFragment extends Fragment {
                         break;
                     case "SAVE":
                         updateRobotInfo();
+                        getActivity().onBackPressed();
                         break;
                 }
 
