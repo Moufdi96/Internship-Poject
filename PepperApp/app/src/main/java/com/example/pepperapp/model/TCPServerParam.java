@@ -4,9 +4,9 @@ public class TCPServerParam {
 
     private String mServerName;
     private String mServerIPAddress;
-    private String mServerPort;
+    private int mServerPort;
 
-    public TCPServerParam(String mServerName, String mServerIPAddress, String mServerPort) {
+    public TCPServerParam(String mServerName, String mServerIPAddress, int mServerPort) {
         this.mServerName = mServerName;
         this.mServerIPAddress = mServerIPAddress;
         this.mServerPort = mServerPort;
@@ -20,7 +20,7 @@ public class TCPServerParam {
         return mServerIPAddress;
     }
 
-    public String getmServerPort() {
+    public int getmServerPort() {
         return mServerPort;
     }
 }
