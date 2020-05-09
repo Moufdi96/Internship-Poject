@@ -80,8 +80,8 @@ public class NewRobotFragment extends Fragment {
                     mSave.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getContext(), mRNameInput + "added successfully to the robot list", Toast.LENGTH_SHORT).show();
-                            Robot newRobot = new Robot(mRNameInput, mRIPAddressInput, mRPortInput);
+                            Toast.makeText(getContext(), mRNameInput + " added successfully to the robot list", Toast.LENGTH_SHORT).show();
+                            Robot newRobot = new Robot(mRNameInput, mRIPAddressInput, mRPortInput,false);
                             mRobotList.getmRobotList().add(newRobot);
                             mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
 

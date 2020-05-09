@@ -1,46 +1,129 @@
 package com.example.pepperapp.Controller;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.pepperapp.model.Robot;
 import com.example.pepperapp.model.TCPServerParam;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class TCPClient {
     private TCPServerParam mServer;
-    private ClientThread clientThread;
-    private Thread thread;
+    private ClientThread mClientThread;
+    private Socket mSocket;
+    private Thread mThread;
+    private boolean isConnectionSuccessful;
+    private boolean isClosingSuccessful;
 
-    public TCPClient(Robot robot){
-        mServer = new TCPServerParam(robot.getmRobotName(),robot.getmRobotIPAddress(),Integer.getInteger(robot.getmRobotPort()));
+    public TCPClient(Robot robot) {
+        mServer = new TCPServerParam(robot.getmRobotName(), robot.getmRobotIPAddress(), Integer.parseInt(robot.getmRobotPort()));
+        mClientThread = new ClientThread();
+        mThread = new Thread(mClientThread);
+        isConnectionSuccessful = true;
+        isClosingSuccessful = true;
+
     }
 
     class ClientThread implements Runnable {
         private final String SERVER_IP = mServer.getmServerIPAddress();
         private final int SERVER_PORT = mServer.getmServerPort();
-        private Socket mSocket;
 
         @Override
         public void run() {
+            InetAddress address = null;
             try {
-                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-                this.mSocket = new Socket(serverAddr, SERVER_PORT);
-                OutputStreamWriter mOutputStreamWriter = new OutputStreamWriter(this.mSocket.getOutputStream());
-                BufferedWriter mBufferedWriter = new BufferedWriter(mOutputStreamWriter);
-                if (null != this.mSocket) {
-                    PrintWriter out = new PrintWriter(mBufferedWriter,true);
+                address = InetAddress.getByName(SERVER_IP);
+                mSocket = new Socket(address, SERVER_PORT);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+                isConnectionSuccessful = false;
+            }
+
+            /*new Thread(new Runnable() {
+                private InputStreamReader mInputStreamReader;
+                private BufferedReader mBufferedReader;
+
+                @Override
+                public void run() {
+                    try {
+                        if(isConnectionSuccessful){
+                            mInputStreamReader = new InputStreamReader(mSocket.getInputStream());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mBufferedReader = new BufferedReader(mInputStreamReader);
+                    if (mSocket != null) {
+                        try {
+                            String message = mBufferedReader.readLine();
+                            Log.d("Message", message);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            }).start();*/
+
+
+        }
+    }
+
+    public void disconnectSocket() {
+        if (mSocket.isConnected() || !mSocket.isClosed()) {
+            try {
+                mSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                isClosingSuccessful = false;
+            }
+        }
+    }
+
+    public void sendToServer() {
+        new Thread(new Runnable() {
+            private OutputStreamWriter mOutputStreamWriter;
+            private BufferedWriter mBufferedWriter;
+
+            @Override
+            public void run() {
+                try {
+                    mOutputStreamWriter = new OutputStreamWriter(mSocket.getOutputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mBufferedWriter = new BufferedWriter(mOutputStreamWriter);
+                if (null != mSocket) {
+                    PrintWriter out = new PrintWriter(mBufferedWriter, true);
                     out.flush();
                     out.println("Just for test");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        }).start();
+    }
 
-        }
+    public Thread getmThread() {
+        return mThread;
+    }
+
+
+    public boolean isConnectionSuccessful(){
+        return isConnectionSuccessful;
+    }
+
+    public boolean isCLosingSuccessful(){
+        return isClosingSuccessful;
     }
 
 
