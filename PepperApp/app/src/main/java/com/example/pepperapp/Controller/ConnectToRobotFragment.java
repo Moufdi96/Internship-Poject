@@ -26,6 +26,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.pepperapp.R;
+import com.example.pepperapp.model.ClientRequest;
 import com.example.pepperapp.model.JsonParseRobotList;
 import com.example.pepperapp.model.Robot;
 import com.google.android.material.navigation.NavigationView;
@@ -49,7 +50,7 @@ public class ConnectToRobotFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     private JsonParseRobotList mRobotList;
     private List<String> mListRobotNames;
-    private TCPClient mTcpClient;
+    private static TCPClient mTcpClient;
     private Robot mLastConnectedRobot;
     private Switch mSwitch;
     private TextView mTextView;
@@ -139,7 +140,7 @@ public class ConnectToRobotFragment extends Fragment {
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTcpClient.sendToServer();
+                mTcpClient.sendRequestToServer(ClientRequest.CREATE_NEW_MOVEMENT);
             }
         });
 
@@ -268,5 +269,9 @@ public class ConnectToRobotFragment extends Fragment {
         //json = json + "test";
         Robot robot = gson.fromJson(json, Robot.class);
         return robot;
+    }
+
+    public static TCPClient getmTcpClient() {
+        return mTcpClient;
     }
 }

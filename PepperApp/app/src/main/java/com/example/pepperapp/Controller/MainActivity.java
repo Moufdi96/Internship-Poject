@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.putString("lastSelectedRobot", gson.toJson(robot)).commit();
     }
 
-    @Override
+    /*@Override
     protected void onStop() {
         JsonParseRobotList j = new JsonParseRobotList(this);
         Robot r = loadRobotPreference();
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         j.writeToJsonFile(j.javaObjectToJson());
         super.onStop();
-    }
+    }*/
 
 
 }

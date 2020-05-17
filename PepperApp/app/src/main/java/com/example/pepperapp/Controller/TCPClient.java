@@ -3,6 +3,7 @@ package com.example.pepperapp.Controller;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.pepperapp.model.ClientRequest;
 import com.example.pepperapp.model.Robot;
 import com.example.pepperapp.model.TCPServerParam;
 
@@ -89,7 +90,7 @@ public class TCPClient {
         }
     }
 
-    public void sendToServer() {
+    public void sendRequestToServer(final ClientRequest clientRequest) {
         new Thread(new Runnable() {
             private OutputStreamWriter mOutputStreamWriter;
             private BufferedWriter mBufferedWriter;
@@ -107,7 +108,7 @@ public class TCPClient {
                     out.flush();
                     int i =0;
                     while(true){
-                        out.println(i++ +" hello !");
+                        out.println(i++ + clientRequest.toString());
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {

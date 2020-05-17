@@ -1,17 +1,24 @@
 package com.example.pepperapp.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Movement {
-    //ksdjbgkfdgbd
+
     private int mMovementId;
     private String mMovementName;
     private MovementType mMovementType;
     private String mMovementDescription;
+    //private Map<JointType, Float> mJointValue= new HashMap<>();
+    private Map<Integer,HashMap<JointType, Float>> mMove;
 
-    public Movement(int mMovementId,String mMovementName,MovementType mMovementType,String mMovementDescription){
+
+    public Movement(int mMovementId, String mMovementName, MovementType mMovementType, String mMovementDescription) {
         this.mMovementId = mMovementId;
         this.mMovementName = mMovementName;
         this.mMovementType = mMovementType;
         this.mMovementDescription = mMovementDescription;
+        this.mMove = new HashMap<>();
     }
 
     public String getmMovementName() {

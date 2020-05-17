@@ -82,7 +82,7 @@
             android:layout_marginTop="30dp">
 
             <ImageView
-                android:id="@+id/movements"
+                android:id="@+id/animation_mode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_play_arrow_black_24dp"></ImageView>
