@@ -30,13 +30,11 @@ public class TCPClient {
         mThread = new Thread(mClientThread);
         isConnectionSuccessful = true;
         isClosingSuccessful = true;
-
     }
 
     class ClientThread implements Runnable {
         private final String SERVER_IP = mServer.getmServerIPAddress();
         private final int SERVER_PORT = mServer.getmServerPort();
-
         @Override
         public void run() {
             InetAddress address = null;
@@ -107,7 +105,15 @@ public class TCPClient {
                 if (null != mSocket) {
                     PrintWriter out = new PrintWriter(mBufferedWriter, true);
                     out.flush();
-                    out.println("Just for test");
+                    int i =0;
+                    while(true){
+                        out.println(i++ +" hello !");
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }).start();

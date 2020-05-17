@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.JsonParseRobotList;
 import com.example.pepperapp.model.Robot;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -201,14 +202,14 @@ public class ConnectToRobotFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (index > 0 && !mSwitch.isChecked()) {
-                    mTextView.setText("Select a Robot");
                     mTcpClient.disconnectSocket();
-                    if(mTcpClient.isCLosingSuccessful()){
+                    if (mTcpClient.isCLosingSuccessful()) {
                         mLastConnectedRobot.setmConnectionStatus(false);
                         saveRobotPreference(mLastConnectedRobot);
                         mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(false);
                         mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
-                        Toast.makeText(getContext(),"Disconnected",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Disconnected", Toast.LENGTH_LONG).show();
+                        mTextView.setText("Select a Robot");
 
                     }
                 } else if (index > 0 && mSwitch.isChecked()) {
@@ -216,26 +217,28 @@ public class ConnectToRobotFragment extends Fragment {
                         mTcpClient = new TCPClient(mRobotList.getmRobotList().get(index - 1));
                         mTcpClient.getmThread().start();
                         try {
+
                             mTcpClient.getmThread().join();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if(mTcpClient.isConnectionSuccessful()){
+                        if (mTcpClient.isConnectionSuccessful()) {
                             mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(true);
                             mLastConnectedRobot = mRobotList.getmRobotList().get(index - 1);
                             saveRobotPreference(mLastConnectedRobot);
-                            mTextView.setText("Connected to " + mLastConnectedRobot.getmRobotName());
-                            Toast.makeText(getContext(),"Connected",Toast.LENGTH_LONG).show();
+                            mTextView.setText("      Connected to " + mLastConnectedRobot.getmRobotName());
+                            Toast.makeText(getContext(), "Connected", Toast.LENGTH_LONG).show();
                             mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
                         } else {
-                            Toast.makeText(getContext(),"Connection failed",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Connection failed "+ mRobotList.getmRobotList().get(index-1).getmRobotName()+"'s server not found",
+                                    Toast.LENGTH_LONG).show();
                             mSwitch.setChecked(false);
                         }
 
                     } else {
                         mSwitch.setChecked(false);
                         Toast.makeText(getContext(), "Already connected to " + mLastConnectedRobot.getmRobotName()
-                                + "please disconnect first if you wish to connect to another robot", Toast.LENGTH_LONG).show();
+                                + " please disconnect first if you wish to connect to another robot", Toast.LENGTH_LONG).show();
                     }
                 }
             }

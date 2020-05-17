@@ -1,5 +1,7 @@
 package com.example.pepperapp.Controller;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +15,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.JsonParseRobotList;
+import com.example.pepperapp.model.Robot;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 public class EditRobotFragment extends Fragment {
+    private static final String SHARED_PREF = "sharedPref";
+    private static final String LAST_SELECTED_ROBOT = "lastSelectedRobot";
     private View mView;
     private ImageButton mEditNameButton;
     private ImageButton mEditIPButton;
@@ -26,6 +32,7 @@ public class EditRobotFragment extends Fragment {
     private TextInputEditText mEditPortText;
     private JsonParseRobotList mJsonParseRobotList;
     private View.OnClickListener mOnClickListener;
+    private SharedPreferences mSharedPreferences;
 
     @Nullable
     @Override
@@ -98,6 +105,26 @@ public class EditRobotFragment extends Fragment {
         this.mJsonParseRobotList.getmRobotList().get(index).setmRobotName(this.mEditNameText.getText().toString());
         this.mJsonParseRobotList.getmRobotList().get(index).setmRobotPort(this.mEditPortText.getText().toString());
         this.mJsonParseRobotList.getmRobotList().get(index).setmRobotIPAddress(this.mEditIPText.getText().toString());
+        this.mJsonParseRobotList.getmRobotList().get(index).setmConnectionStatus(false);
         this.mJsonParseRobotList.writeToJsonFile(mJsonParseRobotList.javaObjectToJson());
+        this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        Robot robot = this.loadRobotPreference();
+        robot.setmConnectionStatus(false);
+        this.saveRobotPreference(robot);
+    }
+
+    public void saveRobotPreference(Robot robot) {
+        Gson gson = new Gson();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(LAST_SELECTED_ROBOT, gson.toJson(robot)).commit();
+    }
+
+    public Robot loadRobotPreference() {
+        String json;
+        Gson gson = new Gson();
+        json = this.mSharedPreferences.getString(LAST_SELECTED_ROBOT, "");
+        //json = json + "test";
+        Robot robot = gson.fromJson(json, Robot.class);
+        return robot;
     }
 }

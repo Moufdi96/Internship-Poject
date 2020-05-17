@@ -34,7 +34,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        mNavigationView.getMenu().getItem(1).setTitle("Connected to ");
+        Robot r = new Robot("","","",false);
+        if(loadRobotPreference()!= null){
+            r = loadRobotPreference();
+        }
+        if (r.getmConnectionStatus()) {
+            mNavigationView.getMenu().getItem(1).setTitle("Connected to " + loadRobotPreference().getmRobotName());
+        } else {
+            mNavigationView.getMenu().getItem(1).setTitle("Connect to a Robot");
+        }
         this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 
@@ -94,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Robot r = loadRobotPreference();
         r.setmConnectionStatus(false);
         saveRobotPreference(r);
-        for(Robot ro: j.getmRobotList()){
-            if(r.getmConnectionStatus()){
+        for (Robot ro : j.getmRobotList()) {
+            if (r.getmConnectionStatus()) {
                 r.setmConnectionStatus(false);
             }
         }
