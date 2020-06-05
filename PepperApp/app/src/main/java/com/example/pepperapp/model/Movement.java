@@ -1,7 +1,8 @@
 package com.example.pepperapp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class Movement {
 
@@ -9,16 +10,14 @@ public class Movement {
     private String mMovementName;
     private MovementType mMovementType;
     private String mMovementDescription;
-    //private Map<JointType, Float> mJointValue= new HashMap<>();
-    private Map<Integer,HashMap<JointType, Float>> mMove;
-
+    private List<HashMap<JointType, Float>> mMove;
 
     public Movement(int mMovementId, String mMovementName, MovementType mMovementType, String mMovementDescription) {
         this.mMovementId = mMovementId;
         this.mMovementName = mMovementName;
         this.mMovementType = mMovementType;
         this.mMovementDescription = mMovementDescription;
-        this.mMove = new HashMap<>();
+        this.mMove = new ArrayList<>();
     }
 
     public String getmMovementName() {

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class JsonParseMovementList extends JsonFile implements JsonFile.JsonParsing {
     private static final String JSON__LIST_FILE = "movementListFile.json";
-    private List<Robot> mMovementList;
+    private List<Movement> mMovementList;
 
     public JsonParseMovementList(Context currentContext, String jsonFile) {
         super(currentContext, jsonFile);
@@ -26,7 +26,7 @@ public class JsonParseMovementList extends JsonFile implements JsonFile.JsonPars
         this.mMovementList = mGson.fromJson(loadedJson, MovementListType);
     }
 
-    public List<Robot> getmMovementList() {
+    public List<Movement> getmMovementList() {
         return mMovementList;
     }
 }

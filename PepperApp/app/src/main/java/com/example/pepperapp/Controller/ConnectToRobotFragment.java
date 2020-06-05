@@ -137,12 +137,12 @@ public class ConnectToRobotFragment extends Fragment {
             }
         });
 
-        mTextView.setOnClickListener(new View.OnClickListener() {
+        /*mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mTcpClient.sendRequestToServer(ClientRequest.CREATE_NEW_MOVEMENT);
             }
-        });
+        });*/
 
         mDeleteRobotButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +202,7 @@ public class ConnectToRobotFragment extends Fragment {
         mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index > 0 && !mSwitch.isChecked()) {
+                if (index > 0 && !mSwitch.isChecked() && mTcpClient != null) {
                     mTcpClient.disconnectSocket();
                     if (mTcpClient.isCLosingSuccessful()) {
                         mLastConnectedRobot.setmConnectionStatus(false);

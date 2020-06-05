@@ -1,5 +1,6 @@
 package com.example.pepperapp.Controller;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,13 +28,15 @@ import java.util.List;
 
 import javax.net.ssl.SNIHostName;
 
-public class CreatNewMovementFragment extends Fragment implements Spinner.OnItemClickListener{
+public class CreatNewMovementFragment extends Fragment implements Spinner.OnItemClickListener {
     private View mView;
     private ImageView mRecordMovement;
+    private ImageView mRecordMovement2;
     private Spinner mTypeSpinner;
     private ArrayAdapter<String> mSpinnerAdapter;
     private List<String> mExerciseTypeList;
     private TextInputEditText mExerciseName;
+    private boolean animationModeStatus;
 
     @Nullable
     @Override
@@ -43,6 +48,7 @@ public class CreatNewMovementFragment extends Fragment implements Spinner.OnItem
         this.mExerciseTypeList.add("");
         this.mExerciseName = mView.findViewById(R.id.exercise_name);
         this.mRecordMovement = (ImageView) mView.findViewById(R.id.animation_mode);
+        this.mRecordMovement2 = (ImageView) mView.findViewById(R.id.stop_animation_mode);
         this.mExerciseTypeList.add(MovementType.NECK.toString());
         this.mExerciseTypeList.add(MovementType.ELBOW.toString());
         this.mExerciseTypeList.add(MovementType.FIST.toString());
@@ -52,11 +58,34 @@ public class CreatNewMovementFragment extends Fragment implements Spinner.OnItem
         this.mExerciseTypeList.add(MovementType.COMBINED.toString());
         this.mSpinnerAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,mExerciseTypeList);
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
+        this.animationModeStatus = false;
 
         this.mRecordMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectToRobotFragment.getmTcpClient().sendRequestToServer(ClientRequest.CREATE_NEW_MOVEMENT);
+                if(ConnectToRobotFragment.getmTcpClient() !=null &&  ConnectToRobotFragment.getmTcpClient().isBound() ){
+                    //ConnectToRobotFragment.getmTcpClient().sendRequestToServer(ClientRequest.CREATE_NEW_MOVEMENT);
+                    ConnectToRobotFragment.getmTcpClient().feedbackFromServer();
+                    animationModeStatus = true;
+                    if(animationModeStatus){
+                        //mRecordMovement.setImageResource(R.drawable.ic_pause_circle);
+                        Toast.makeText(getContext(),"Animation mode activated",Toast.LENGTH_SHORT).show();
+                    } else{
+                        //mRecordMovement.setImageResource(R.drawable.ic_play_circle);
+                        //Toast.makeText(getContext(),"Animation mode deactivated",Toast.LENGTH_SHORT).show();
+                    }
+
+                }else{
+                    Toast.makeText(getContext(),"No connection to robot detected !",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        this.mRecordMovement2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationModeStatus = true;
+                Toast.makeText(getContext(),"Animation mode deactivated",Toast.LENGTH_SHORT).show();
             }
         });
 

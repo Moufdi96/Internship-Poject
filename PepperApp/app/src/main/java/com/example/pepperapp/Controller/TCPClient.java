@@ -29,8 +29,8 @@ public class TCPClient {
         mServer = new TCPServerParam(robot.getmRobotName(), robot.getmRobotIPAddress(), Integer.parseInt(robot.getmRobotPort()));
         mClientThread = new ClientThread();
         mThread = new Thread(mClientThread);
-        isConnectionSuccessful = true;
-        isClosingSuccessful = true;
+        isConnectionSuccessful = false;
+        isClosingSuccessful = false;
     }
 
     class ClientThread implements Runnable {
@@ -42,39 +42,13 @@ public class TCPClient {
             try {
                 address = InetAddress.getByName(SERVER_IP);
                 mSocket = new Socket(address, SERVER_PORT);
+                isConnectionSuccessful = true;
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
                 isConnectionSuccessful = false;
             }
-
-            /*new Thread(new Runnable() {
-                private InputStreamReader mInputStreamReader;
-                private BufferedReader mBufferedReader;
-
-                @Override
-                public void run() {
-                    try {
-                        if(isConnectionSuccessful){
-                            mInputStreamReader = new InputStreamReader(mSocket.getInputStream());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mBufferedReader = new BufferedReader(mInputStreamReader);
-                    if (mSocket != null) {
-                        try {
-                            String message = mBufferedReader.readLine();
-                            Log.d("Message", message);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }
-            }).start();*/
-
 
         }
     }
@@ -83,6 +57,7 @@ public class TCPClient {
         if (mSocket.isConnected() || !mSocket.isClosed()) {
             try {
                 mSocket.close();
+                isClosingSuccessful = true;
             } catch (IOException e) {
                 e.printStackTrace();
                 isClosingSuccessful = false;
@@ -120,6 +95,40 @@ public class TCPClient {
         }).start();
     }
 
+    public void feedbackFromServer(){
+        new Thread(new Runnable() {
+            private InputStreamReader mInputStreamReader;
+            private BufferedReader mBufferedReader;
+
+            @Override
+            public void run() {
+                try {
+                    if(isConnectionSuccessful){
+                        mInputStreamReader = new InputStreamReader(mSocket.getInputStream());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                while (ConnectToRobotFragment.getmTcpClient().isBound() && mSocket != null){
+                    try {
+                        mBufferedReader = new BufferedReader(mInputStreamReader);
+                        String message = mBufferedReader.readLine();
+                        Log.d("Message", message);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        mBufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        }).start();
+    }
+
     public Thread getmThread() {
         return mThread;
     }
@@ -131,6 +140,10 @@ public class TCPClient {
 
     public boolean isCLosingSuccessful(){
         return isClosingSuccessful;
+    }
+
+    public boolean isBound(){
+        return isConnectionSuccessful && !isClosingSuccessful;
     }
 
 
