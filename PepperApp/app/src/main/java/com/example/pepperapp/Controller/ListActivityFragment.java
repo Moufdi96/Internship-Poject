@@ -43,14 +43,16 @@ public class ListActivityFragment extends Fragment {
         listMovment.add(new Movement(index, "..........................movement 1..........................",MovementType.NECK, ""));
         listMovment.add(new Movement(index, "..........................movement 2..........................",MovementType.COMBINED, ""));
         listMovment.add(new Movement(index, "..........................movement 3..........................",MovementType.WRIST, ""));
-        Activity act1 = new Activity("__________Activity1__________",listMovment);
-        Activity act2 = new Activity("___________Activity2__________",listMovment);
-        Activity act3 = new Activity("Activity3",listMovment);
-        Activity act4 = new Activity("Activity4",listMovment);
-        Activity act5 = new Activity("Activity5",listMovment);
-        Activity act6 = new Activity("Activity6",listMovment);
-        Activity act7 = new Activity("Activity7",listMovment);
-        Activity act8 = new Activity("Activity8",listMovment);
+        Activity act1 = new Activity("         ___________ Level 1 ____________",listMovment);
+        Activity act2 = new Activity("         ___________ Level 2 ____________",listMovment);
+        Activity act3 = new Activity("         ___________ Level 3 ____________",listMovment);
+        Activity act4 = new Activity("         ___________ Level 4 ____________",listMovment);
+        Activity act5 = new Activity("         ___________ Level 5 ____________",listMovment);
+        Activity act6 = new Activity("         ___________ Level 6 ____________",listMovment);
+        Activity act7 = new Activity("         ___________ Level 7 ____________",listMovment);
+        Activity act8 = new Activity("         ___________ Level 8 ____________",listMovment);
+        Activity act9 = new Activity("         ___________ Level 9 ____________",listMovment);
+        Activity act10 = new Activity("        __________  Level 10 ____________",listMovment);
 
         mActivityList.add(act1.getmActivityName());
         mActivityList.add(act2.getmActivityName());
@@ -89,6 +91,13 @@ public class ListActivityFragment extends Fragment {
                     }
                 });
 
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getFragmentManager().beginTransaction().replace(R.id.activity_fragment_container,new ActivityFragment(),"ActivityFragment").commit();
             }
         });
 

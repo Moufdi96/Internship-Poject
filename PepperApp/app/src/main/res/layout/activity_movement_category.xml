@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Please precise the exercise category"
+            android:layout_marginTop="30dp"
+            android:text="Please select a category for this new exercise\n you want to create"
             android:textColor="@color/colorAccent"
             android:textSize="15dp"
             android:textStyle="italic"></TextView>
@@ -276,6 +277,7 @@
                             android:layout_height="100dp"
                             android:layout_gravity="center"
                             android:background="#FFF"
+                            android:src="@drawable/stretching"
                             android:outlineSpotShadowColor="@android:color/black"
                             android:padding="10dp"></ImageButton>
 
@@ -285,7 +287,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:src="@drawable/stretching"
                             android:text="Combined"
                             android:textColor="@color/colorAccent"
                             android:textSize="15dp"
