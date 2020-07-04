@@ -2,6 +2,7 @@ package com.example.pepperapp.Controller;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.ClientRequest;
 import com.example.pepperapp.model.MovementType;
@@ -36,6 +38,7 @@ public class CreatNewMovementFragment extends Fragment implements Spinner.OnItem
     private ArrayAdapter<String> mSpinnerAdapter;
     private List<String> mExerciseTypeList;
     private TextInputEditText mExerciseName;
+    private UICommand mUICommand;
     private boolean animationModeStatus;
 
     @Nullable
@@ -63,17 +66,18 @@ public class CreatNewMovementFragment extends Fragment implements Spinner.OnItem
         this.mRecordMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ConnectToRobotFragment.getmTcpClient() !=null &&  ConnectToRobotFragment.getmTcpClient().isBound() ){
-                    //ConnectToRobotFragment.getmTcpClient().sendRequestToServer(ClientRequest.CREATE_NEW_MOVEMENT);
-                    ConnectToRobotFragment.getmTcpClient().feedbackFromServer();
-                    animationModeStatus = true;
-                    if(animationModeStatus){
+                if(ConnectToRobotFragment.getmFtpClient() !=null &&  ConnectToRobotFragment.getmFtpClient().isConnected()){
+                    mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.CREATE_NEW_MOVEMENT,getContext());
+                    Log.d("PLAY", mUICommand.feedbackFromServer());
+                    //animationModeStatus = true;
+                    //if(animationModeStatus){
                         //mRecordMovement.setImageResource(R.drawable.ic_pause_circle);
                         Toast.makeText(getContext(),"Animation mode activated",Toast.LENGTH_SHORT).show();
-                    } else{
+                    //} else{
                         //mRecordMovement.setImageResource(R.drawable.ic_play_circle);
                         //Toast.makeText(getContext(),"Animation mode deactivated",Toast.LENGTH_SHORT).show();
-                    }
+                    //}
 
                 }else{
                     Toast.makeText(getContext(),"No connection to robot detected !",Toast.LENGTH_LONG).show();

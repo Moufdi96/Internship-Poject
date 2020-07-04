@@ -3,17 +3,13 @@ package com.example.pepperapp.Controller;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,21 +17,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.menu.MenuView;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.Controller.FTPCoponents.FtpClient;
+import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
-import com.example.pepperapp.model.ClientRequest;
 import com.example.pepperapp.model.JsonParseRobotList;
 import com.example.pepperapp.model.Robot;
-import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import org.apache.commons.net.ftp.FTPClient;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +42,8 @@ public class ConnectToRobotFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     private JsonParseRobotList mRobotList;
     private List<String> mListRobotNames;
-    private static TCPClient mTcpClient;
+    private static FtpClient mFtpClient;
+    private UICommand mUICommand;
     private Robot mLastConnectedRobot;
     private Switch mSwitch;
     private TextView mTextView;
@@ -202,9 +195,9 @@ public class ConnectToRobotFragment extends Fragment {
         mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index > 0 && !mSwitch.isChecked() && mTcpClient != null) {
-                    mTcpClient.disconnectSocket();
-                    if (mTcpClient.isCLosingSuccessful()) {
+                if (index > 0 && !mSwitch.isChecked() && mFtpClient != null) {
+                    mFtpClient.disconnect();
+                    if (mFtpClient.isCLosingSuccessful()) {
                         mLastConnectedRobot.setmConnectionStatus(false);
                         saveRobotPreference(mLastConnectedRobot);
                         mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(false);
@@ -215,15 +208,15 @@ public class ConnectToRobotFragment extends Fragment {
                     }
                 } else if (index > 0 && mSwitch.isChecked()) {
                     if (!mLastConnectedRobot.getmConnectionStatus()) {
-                        mTcpClient = new TCPClient(mRobotList.getmRobotList().get(index - 1));
-                        mTcpClient.getmThread().start();
+                        mFtpClient = new FtpClient(mRobotList.getmRobotList().get(index - 1));
+                        mFtpClient.getmThread().start();
                         try {
 
-                            mTcpClient.getmThread().join();
+                            mFtpClient.getmThread().join();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if (mTcpClient.isConnectionSuccessful()) {
+                        if (mFtpClient.isConnectionSuccessful()) {
                             mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(true);
                             mLastConnectedRobot = mRobotList.getmRobotList().get(index - 1);
                             saveRobotPreference(mLastConnectedRobot);
@@ -271,7 +264,7 @@ public class ConnectToRobotFragment extends Fragment {
         return robot;
     }
 
-    public static TCPClient getmTcpClient() {
-        return mTcpClient;
+    public static FtpClient getmFtpClient() {
+        return mFtpClient;
     }
 }
