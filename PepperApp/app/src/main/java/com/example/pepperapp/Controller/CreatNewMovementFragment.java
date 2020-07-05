@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.Controller.FTPCoponents.FTPTransferData;
 import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.ClientRequest;
@@ -69,7 +70,12 @@ public class CreatNewMovementFragment extends Fragment implements Spinner.OnItem
                 if(ConnectToRobotFragment.getmFtpClient() !=null &&  ConnectToRobotFragment.getmFtpClient().isConnected()){
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                     mUICommand.sendCommandToServer(UICommand.UIRequest.CREATE_NEW_MOVEMENT,getContext());
-                    Log.d("PLAY", mUICommand.feedbackFromServer());
+                    Log.d("CREATE_NEW_MOVEMENT", mUICommand.feedbackFromServer());
+                    FTPTransferData ftpTransferData = new FTPTransferData(ConnectToRobotFragment.getmFtpClient().getFTPClient());
+                    ftpTransferData.retrieveFile("Mov111.txt","Documents/FTPUploadedFiles","/data/data/com.example.pepperapp/files");
+                    Log.d("File", ftpTransferData.feedbackFromServer());
+                    ftpTransferData.sendFile("Mov222.txt","Documents/FTPUploadedFiles","/data/data/com.example.pepperapp/files");
+                    Log.d("File", ftpTransferData.feedbackFromServer());
                     //animationModeStatus = true;
                     //if(animationModeStatus){
                         //mRecordMovement.setImageResource(R.drawable.ic_pause_circle);

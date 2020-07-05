@@ -1,12 +1,7 @@
 package com.example.pepperapp.Controller.FTPCoponents;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import com.example.pepperapp.Controller.CreatNewMovementFragment;
-
 import org.apache.commons.net.ftp.FTPClient;
-
 import java.io.IOException;
 
 public class UICommand {

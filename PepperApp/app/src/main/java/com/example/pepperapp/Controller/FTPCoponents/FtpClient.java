@@ -88,6 +88,7 @@ public class FtpClient {
             isConnectionSuccessful = false;
             isClosingSuccessful = true;
         }
+        this.mFTPClient.enterLocalPassiveMode();
         return mFTPClient.getReplyString();
     }
 
