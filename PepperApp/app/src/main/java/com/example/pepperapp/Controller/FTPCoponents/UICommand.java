@@ -8,7 +8,7 @@ public class UICommand {
     private FTPClient mFTPClient;
 
     public enum UIRequest {
-        CREATE_NEW_MOVEMENT, PLAY_MOVEMENT, CREATE_NEW_ACTIVITY, PLAY_ACTIVITY,PLAY
+        PLAY_MOVEMENT, CREATE_NEW_ACTIVITY, PLAY_ACTIVITY,PLAY,ACTIVATE_ANIMATION_MODE,DEACTIVATE_ANIMATION_MODE
     }
 
     public UICommand(FTPClient ftpClient) {
@@ -29,8 +29,14 @@ public class UICommand {
         }).start();
     }
 
+    /*public int feedbackFromServer() {
+        int code = 0;
+        code = mFTPClient.getReplyCode();
+        return code;
+    }*/
+
     public String feedbackFromServer() {
-        return mFTPClient.getReplyString();
+       return this.mFTPClient.getReplyString().trim();
     }
 
     public FTPClient getFTPClient() {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -216,7 +217,8 @@ public class ConnectToRobotFragment extends Fragment {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if (mFtpClient.isConnectionSuccessful()) {
+                        if (mFtpClient.isConnectionSuccessful() && mFtpClient.isLoginSuccessful()) {
+                            Log.d("Login", mFtpClient.getFTPClient().getReplyString());
                             mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(true);
                             mLastConnectedRobot = mRobotList.getmRobotList().get(index - 1);
                             saveRobotPreference(mLastConnectedRobot);

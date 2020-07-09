@@ -35,12 +35,12 @@ public class FtpClient {
         @Override
         public void run() {
             this.mConnectionFeedback = connect(mServer);
-            this.mLoginFeedback = login("moufdi", "taha");
+            this.mLoginFeedback = login("nao", "pepper");
         }
     }
 
     public void disconnect() {
-        if (isConnected() || isLoging()) {
+        if (isConnectionSuccessful || isLoginSuccessful) {
 
             try {
                 //this.mFTPClient.logout();
@@ -63,6 +63,10 @@ public class FtpClient {
 
     public boolean isConnectionSuccessful() {
         return isConnectionSuccessful;
+    }
+
+    public boolean isLoginSuccessful() {
+        return isLoginSuccessful;
     }
 
     public boolean isCLosingSuccessful() {
@@ -93,7 +97,7 @@ public class FtpClient {
     }
 
     public String login(String user, String pass) {
-        if (this.isConnected()) {
+        if (this.isConnectionSuccessful) {
             try {
                 this.mFTPClient.sendCommand(FTPCmd.USER, user);
                 this.mFTPClient.sendCommand(FTPCmd.PASS, pass);
@@ -103,14 +107,6 @@ public class FtpClient {
             }
         }
         return mFTPClient.getReplyString();
-    }
-
-    public boolean isConnected() {
-        return this.isConnectionSuccessful;
-    }
-
-    public boolean isLoging() {
-        return this.isLoginSuccessful;
     }
 
 }

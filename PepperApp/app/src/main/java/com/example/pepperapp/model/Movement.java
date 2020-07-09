@@ -10,14 +10,14 @@ public class Movement {
     private String mMovementName;
     private MovementType mMovementType;
     private String mMovementDescription;
-    private List<HashMap<JointType, Float>> mMove;
+    //private List<HashMap<JointType, Float>> mMove;
 
     public Movement(int mMovementId, String mMovementName, MovementType mMovementType, String mMovementDescription) {
         this.mMovementId = mMovementId;
         this.mMovementName = mMovementName;
         this.mMovementType = mMovementType;
         this.mMovementDescription = mMovementDescription;
-        this.mMove = new ArrayList<>();
+        //this.mMove = new ArrayList<>();
     }
 
     public String getmMovementName() {

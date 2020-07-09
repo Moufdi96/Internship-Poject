@@ -50,13 +50,39 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/movement_list"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:choiceMode="multipleChoice"
-        android:listSelector="@color/colorAccent"></ListView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/no_mvt_text"
+            android:layout_marginTop="135dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Exercises created so far\n click the plus button to create a new one"
+            android:textSize="17dp"
+            android:visibility="invisible">
+
+        </TextView>
+
+        <ListView
+            android:id="@+id/movement_list"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:choiceMode="multipleChoice"
+            android:visibility="invisible"
+            android:listSelector="@color/colorAccent"></ListView>
+    </RelativeLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
