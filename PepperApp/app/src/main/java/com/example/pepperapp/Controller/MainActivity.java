@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,23 +20,31 @@ import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
-    private androidx.appcompat.widget.Toolbar mToolbar;
-    private NavigationView mNavigationView;
+    private static androidx.appcompat.widget.Toolbar mToolbar;
+    private static NavigationView mNavigationView;
+    private static HomeFragment mHomeFragment;
+    private static ConnectToRobotFragment mConnectToRobotFragment;
+    private static SettingsFragment mSettingsFragment;
+    private static HelpFragment mHelpFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mToolbar = findViewById(R.id.toolbar);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        mNavigationView = findViewById(R.id.nav_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
+        this.mToolbar = findViewById(R.id.toolbar);
+        this.mDrawerLayout = findViewById(R.id.drawer_layout);
+        this.mNavigationView = findViewById(R.id.nav_view);
+        this.mConnectToRobotFragment = new ConnectToRobotFragment();
+        this.mHomeFragment = new HomeFragment();
+        this.mSettingsFragment = new SettingsFragment();
+        this.mHelpFragment = new HelpFragment();
+        this.mNavigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(mToolbar);
         ActionBarDrawerToggle mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        Robot r = new Robot("","","",false);
-        if(loadRobotPreference()!= null){
+        Robot r = new Robot("", "", "", false);
+        if (loadRobotPreference() != null) {
             r = loadRobotPreference();
         }
         if (r.getmConnectionStatus()) {
@@ -43,7 +52,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             mNavigationView.getMenu().getItem(1).setTitle("Connect to a Robot");
         }
-        this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+
+        if (getIntent() != null) {
+            String fragmentToOpen = getIntent().getStringExtra("connectToRobot");
+            if (fragmentToOpen != null) {
+                switch (fragmentToOpen) {
+                    case "connectToRobotFragment":
+                        this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mConnectToRobotFragment, "connectToRobotFragment").commit();
+                        break;
+                }
+            }
+
+        } else {
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
+
     }
 
     @Override
@@ -65,16 +89,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.homepage:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHomeFragment, "homeFragment").commit();
                 break;
             case R.id.add_robot:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConnectToRobotFragment(), "ConnectToRobotFragment").commit();
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mConnectToRobotFragment, "connectToRobotFragment").commit();
                 break;
             case R.id.settings:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mSettingsFragment, "settingsFragment").commit();
                 break;
             case R.id.help:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HelpFragment()).commit();
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHelpFragment, "helpFragment").commit();
                 break;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -111,5 +135,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStop();
     }*/
 
+    public static HomeFragment getHomeFragment() {
+        return mHomeFragment;
+    }
 
+    public static ConnectToRobotFragment getConnectToRobotFragment() {
+        return mConnectToRobotFragment;
+    }
+
+    public static SettingsFragment getSettingsFragment() {
+        return mSettingsFragment;
+    }
+
+    public static HelpFragment getHelpFragment() {
+        return mHelpFragment;
+    }
 }

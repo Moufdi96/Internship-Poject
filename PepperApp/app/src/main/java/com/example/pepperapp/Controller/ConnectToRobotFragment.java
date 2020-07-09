@@ -25,6 +25,7 @@ import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.JsonParseRobotList;
 import com.example.pepperapp.model.Robot;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -48,7 +49,9 @@ public class ConnectToRobotFragment extends Fragment {
     private Robot mLastConnectedRobot;
     private Switch mSwitch;
     private TextView mTextView;
+    private TextView mTextNoRobot;
     private int index = -1;
+    private FloatingActionButton mBAddToActivity;
 
     @Nullable
     @Override
@@ -58,6 +61,8 @@ public class ConnectToRobotFragment extends Fragment {
         this.mDeleteRobotButton = mView.findViewById(R.id.delete_robot);
         this.mTextView = mView.findViewById(R.id.last_connected_robot);
         this.mSwitch = mView.findViewById(R.id.connect_switch);
+        this.mTextNoRobot = (TextView)mView.findViewById(R.id.no_robot_text);
+        this.mBAddToActivity = (FloatingActionButton) mView.findViewById(R.id.fab_add_robot);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         if (savedInstanceState != null) {
             //mSwitch.setChecked(savedInstanceState.getBoolean("switchState"));
@@ -79,7 +84,6 @@ public class ConnectToRobotFragment extends Fragment {
         this.mListRobotNames = new ArrayList<>();
         this.mRobotListAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mListRobotNames);
 
-        this.mListRobotNames.add("Add a new robot");
         this.mRobotList = new JsonParseRobotList(this.getContext());
         if (this.mRobotList.readJsonFile()) {
             this.mRobotList.jsonToJavaObject();
@@ -88,6 +92,15 @@ public class ConnectToRobotFragment extends Fragment {
 
             }
         }
+        if (this.mRobotList.getmRobotList().isEmpty()) {
+            this.mTextNoRobot.setVisibility(View.VISIBLE);
+            this.mRobotListView.setVisibility(View.INVISIBLE);
+            this.mSwitch.setVisibility(View.INVISIBLE);
+        } else {
+            mRobotListView.setVisibility(View.VISIBLE);
+            mTextNoRobot.setVisibility(View.INVISIBLE);
+            mSwitch.setVisibility(View.VISIBLE);
+        }
         mRobotListView.setAdapter(mRobotListAdapter);
 
         mRobotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,14 +108,8 @@ public class ConnectToRobotFragment extends Fragment {
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, int position, long id) {
                 index = position;
-                if (index == 0) {
-                    mSwitch.setVisibility(View.INVISIBLE);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewRobotFragment(), "newRobotFragment").commit();
-
-                } else if (index > 0) {
-                    mSwitch.setEnabled(true);
-                    mSwitch.setChecked(mRobotList.getmRobotList().get(index - 1).getmConnectionStatus());
-                }
+                mSwitch.setEnabled(true);
+                mSwitch.setChecked(mRobotList.getmRobotList().get(index).getmConnectionStatus());
             }
         });
 
@@ -110,12 +117,10 @@ public class ConnectToRobotFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 index = position;
-                if (index > 0) {
                     mEditRobotInfoButton.setVisibility(View.VISIBLE);
                     mDeleteRobotButton.setVisibility(View.VISIBLE);
                     mView.findViewById(R.id.cardview1).setVisibility(View.VISIBLE);
                     mView.findViewById(R.id.cardview2).setVisibility(View.VISIBLE);
-                }
                 return false;
             }
         });
@@ -124,7 +129,7 @@ public class ConnectToRobotFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("selectedRobotPosition", index - 1);
+                bundle.putInt("selectedRobotPosition", index);
                 EditRobotFragment editRobotFragment = new EditRobotFragment();
                 editRobotFragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, editRobotFragment, "EditRobotFragment").commit();
@@ -142,20 +147,32 @@ public class ConnectToRobotFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!mRobotList.getmRobotList().isEmpty()) {
-                    if (mLastConnectedRobot.getmRobotName() == mRobotList.getmRobotList().get(index - 1).getmRobotName()) {
+                    if (mLastConnectedRobot.getmRobotName() == mRobotList.getmRobotList().get(index).getmRobotName()) {
                         mLastConnectedRobot = new Robot("", "", "", false);
                         saveRobotPreference(mLastConnectedRobot);
                         mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
                         mTextView.setText("Select a Robot");
                         mSwitch.setChecked(false);
                     }
-                    mRobotList.getmRobotList().remove(index - 1);
+                    mRobotList.getmRobotList().remove(index);
                     mListRobotNames.remove(index);
                     mRobotListAdapter.notifyDataSetChanged();
+                    if(mRobotList.getmRobotList().isEmpty()){
+                        mTextNoRobot.setVisibility(View.VISIBLE);
+                        mRobotListView.setVisibility(View.INVISIBLE);
+                        mSwitch.setVisibility(View.INVISIBLE);
+                    }
                     mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
                     //mEditRobotInfoButton.setVisibility(View.INVISIBLE);
                     //mDeleteRobotButton.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        mBAddToActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewRobotFragment(), "createNewRobotFragment").commit();
             }
         });
 
@@ -196,20 +213,20 @@ public class ConnectToRobotFragment extends Fragment {
         mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index > 0 && !mSwitch.isChecked() && mFtpClient != null) {
+                if (index >= 0 && !mSwitch.isChecked() && mFtpClient != null) {
                     mFtpClient.disconnect();
                     if (mFtpClient.isCLosingSuccessful()) {
                         mLastConnectedRobot.setmConnectionStatus(false);
                         saveRobotPreference(mLastConnectedRobot);
-                        mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(false);
+                        mRobotList.getmRobotList().get(index).setmConnectionStatus(false);
                         mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
                         Toast.makeText(getContext(), "Disconnected", Toast.LENGTH_LONG).show();
                         mTextView.setText("Select a Robot");
 
                     }
-                } else if (index > 0 && mSwitch.isChecked()) {
+                } else if (index >= 0 && mSwitch.isChecked()) {
                     if (!mLastConnectedRobot.getmConnectionStatus()) {
-                        mFtpClient = new FtpClient(mRobotList.getmRobotList().get(index - 1));
+                        mFtpClient = new FtpClient(mRobotList.getmRobotList().get(index));
                         mFtpClient.getmThread().start();
                         try {
 
@@ -219,14 +236,14 @@ public class ConnectToRobotFragment extends Fragment {
                         }
                         if (mFtpClient.isConnectionSuccessful() && mFtpClient.isLoginSuccessful()) {
                             Log.d("Login", mFtpClient.getFTPClient().getReplyString());
-                            mRobotList.getmRobotList().get(index - 1).setmConnectionStatus(true);
-                            mLastConnectedRobot = mRobotList.getmRobotList().get(index - 1);
+                            mRobotList.getmRobotList().get(index).setmConnectionStatus(true);
+                            mLastConnectedRobot = mRobotList.getmRobotList().get(index);
                             saveRobotPreference(mLastConnectedRobot);
                             mTextView.setText("      Connected to " + mLastConnectedRobot.getmRobotName());
                             Toast.makeText(getContext(), "Connected", Toast.LENGTH_LONG).show();
                             mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
                         } else {
-                            Toast.makeText(getContext(), "Connection failed "+ mRobotList.getmRobotList().get(index-1).getmRobotName()+"'s server not found",
+                            Toast.makeText(getContext(), "Connection failed " + mRobotList.getmRobotList().get(index).getmRobotName() + "'s server not found",
                                     Toast.LENGTH_LONG).show();
                             mSwitch.setChecked(false);
                         }

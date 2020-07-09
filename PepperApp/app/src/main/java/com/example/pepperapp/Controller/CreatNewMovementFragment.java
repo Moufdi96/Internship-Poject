@@ -1,5 +1,7 @@
 package com.example.pepperapp.Controller;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -136,7 +138,7 @@ public class CreatNewMovementFragment extends Fragment {
                     //}
 
                 } else {
-                    Toast.makeText(getContext(), "No connection to robot detected !", Toast.LENGTH_LONG).show();
+                    openAlertDialog();
                 }
             }
         });
@@ -167,5 +169,17 @@ public class CreatNewMovementFragment extends Fragment {
 
         return mView;
 
+    }
+
+    public void openAlertDialog(){
+        ConnectionDialog noConnectionAlert = new ConnectionDialog("Oops ! no robot found","OK","Please click 'OK' to choose a robot",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent homeActivity = new Intent(getActivity(), MainActivity.class);
+                homeActivity.putExtra ("connectToRobot","connectToRobotFragment");
+                startActivity(homeActivity);
+            }
+        } );
+        noConnectionAlert.show(getFragmentManager(),"noConnectionAlert");
     }
 }

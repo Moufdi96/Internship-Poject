@@ -84,7 +84,6 @@ public class NewRobotFragment extends Fragment {
                             Robot newRobot = new Robot(mRNameInput, mRIPAddressInput, mRPortInput,false);
                             mRobotList.getmRobotList().add(newRobot);
                             mRobotList.writeToJsonFile(mRobotList.javaObjectToJson());
-
                             getActivity().onBackPressed();
                         }
                     });

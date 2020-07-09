@@ -93,10 +93,8 @@ public class ListMovementFragment extends Fragment {
                             mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).remove(position);
                             mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
                             mMovementListNames.remove(position);
-                            if(mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).size() == size--){
-                                mMovementArrayAdapter1.notifyDataSetChanged();
-                                Toast.makeText(getContext(),"Successfully deleted",Toast.LENGTH_SHORT).show();
-                            }
+                            mMovementArrayAdapter1.notifyDataSetChanged();
+                            Toast.makeText(getContext(),"Successfully deleted",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -127,7 +125,6 @@ public class ListMovementFragment extends Fragment {
         //this.mMovementList = new ArrayList<>();
         this.mMovementArrayAdapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mMovementListNames);
         this.mBAddToActivity.setBackgroundColor(Color.GRAY);
-
 
     }
 }
