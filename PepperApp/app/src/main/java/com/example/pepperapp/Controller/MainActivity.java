@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-        if (getIntent() != null) {
+        if (getIntent() != null && getIntent().getStringExtra("connectToRobot") != null) {
             String fragmentToOpen = getIntent().getStringExtra("connectToRobot");
-            if (fragmentToOpen != null) {
+            if (!fragmentToOpen.isEmpty()) {
                 switch (fragmentToOpen) {
                     case "connectToRobotFragment":
                         this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mConnectToRobotFragment, "connectToRobotFragment").commit();

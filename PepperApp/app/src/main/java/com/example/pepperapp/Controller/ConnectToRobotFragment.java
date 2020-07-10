@@ -61,7 +61,7 @@ public class ConnectToRobotFragment extends Fragment {
         this.mDeleteRobotButton = mView.findViewById(R.id.delete_robot);
         this.mTextView = mView.findViewById(R.id.last_connected_robot);
         this.mSwitch = mView.findViewById(R.id.connect_switch);
-        this.mTextNoRobot = (TextView)mView.findViewById(R.id.no_robot_text);
+        this.mTextNoRobot = (TextView) mView.findViewById(R.id.no_robot_text);
         this.mBAddToActivity = (FloatingActionButton) mView.findViewById(R.id.fab_add_robot);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         if (savedInstanceState != null) {
@@ -117,10 +117,10 @@ public class ConnectToRobotFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 index = position;
-                    mEditRobotInfoButton.setVisibility(View.VISIBLE);
-                    mDeleteRobotButton.setVisibility(View.VISIBLE);
-                    mView.findViewById(R.id.cardview1).setVisibility(View.VISIBLE);
-                    mView.findViewById(R.id.cardview2).setVisibility(View.VISIBLE);
+                mEditRobotInfoButton.setVisibility(View.VISIBLE);
+                mDeleteRobotButton.setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.cardview1).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.cardview2).setVisibility(View.VISIBLE);
                 return false;
             }
         });
@@ -157,7 +157,8 @@ public class ConnectToRobotFragment extends Fragment {
                     mRobotList.getmRobotList().remove(index);
                     mListRobotNames.remove(index);
                     mRobotListAdapter.notifyDataSetChanged();
-                    if(mRobotList.getmRobotList().isEmpty()){
+                    mRobotListView.setAdapter(mRobotListAdapter);
+                    if (mRobotList.getmRobotList().isEmpty()) {
                         mTextNoRobot.setVisibility(View.VISIBLE);
                         mRobotListView.setVisibility(View.INVISIBLE);
                         mSwitch.setVisibility(View.INVISIBLE);
