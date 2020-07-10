@@ -1,8 +1,6 @@
 package com.example.pepperapp.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import android.net.Uri;
 
 public class Movement {
 
@@ -10,13 +8,15 @@ public class Movement {
     private String mMovementName;
     private MovementType mMovementType;
     private String mMovementDescription;
+    private String mUri;
     //private List<HashMap<JointType, Float>> mMove;
 
-    public Movement(int mMovementId, String mMovementName, MovementType mMovementType, String mMovementDescription) {
+    public Movement(int mMovementId, String mMovementName, MovementType mMovementType, String mMovementDescription,String uri) {
         this.mMovementId = mMovementId;
         this.mMovementName = mMovementName;
         this.mMovementType = mMovementType;
         this.mMovementDescription = mMovementDescription;
+        this.mUri = uri;
         //this.mMove = new ArrayList<>();
     }
 
@@ -53,4 +53,11 @@ public class Movement {
         this.mMovementId = mMovementId;
     }
 
+    public String getmURI() {
+        return mUri;
+    }
+
+    public void setmURI(String mURI) {
+        this.mUri = mURI;
+    }
 }

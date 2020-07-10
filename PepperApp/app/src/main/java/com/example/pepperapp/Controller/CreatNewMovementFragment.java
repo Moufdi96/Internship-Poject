@@ -3,7 +3,9 @@ package com.example.pepperapp.Controller;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +30,7 @@ import androidx.fragment.app.Fragment;
 import com.example.pepperapp.Controller.FTPCoponents.FTPTransferData;
 import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
+import com.example.pepperapp.model.Activity;
 import com.example.pepperapp.model.ClientRequest;
 import com.example.pepperapp.model.Movement;
 import com.example.pepperapp.model.MovementType;
@@ -41,20 +45,24 @@ import java.util.List;
 import javax.net.ssl.SNIHostName;
 
 public class CreatNewMovementFragment extends Fragment {
+    private static final int REQUEST_CAMERA = 1;
     private View mView;
     private ImageView mRecordMovement;
     private ImageView mStopRecordMovement;
+    private ImageButton mDemoVideo;
+    private VideoView videoView;
     private Spinner mTypeSpinner;
     private ArrayAdapter<String> mSpinnerAdapter;
     private List<String> mExerciseTypeList;
     private TextInputEditText mExerciseName;
     private UICommand mUICommand;
     private Movement mNewMovement;
-    private boolean animationModeStatus;
     private Button mSaveMovement;
     private JsonParseMovementLIst mJsonParseMovementLIst;
+    private TextView mURIText;
     private String mName;
     private String mType;
+    private String mUri;
 
     @Nullable
     @Override
@@ -65,9 +73,11 @@ public class CreatNewMovementFragment extends Fragment {
         this.mExerciseTypeList = new ArrayList<>();
         this.mExerciseTypeList.add("");
         this.mExerciseName = mView.findViewById(R.id.exercise_name);
+        this.mDemoVideo = (ImageButton) mView.findViewById(R.id.demo_video);
         this.mRecordMovement = (ImageView) mView.findViewById(R.id.animation_mode);
+        this.mURIText = (TextView) mView.findViewById(R.id.uri);
         this.mStopRecordMovement = (ImageView) mView.findViewById(R.id.stop_animation_mode);
-        this.mSaveMovement = (Button)mView.findViewById(R.id.save_movement_button);
+        this.mSaveMovement = (Button) mView.findViewById(R.id.save_movement_button);
         this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext());
         this.mExerciseTypeList.add(MovementType.NECK.toString());
         this.mExerciseTypeList.add(MovementType.ELBOW.toString());
@@ -80,7 +90,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
         this.mSaveMovement.setEnabled(false);
 
-        if(mJsonParseMovementLIst.readJsonFile()){
+        if (mJsonParseMovementLIst.readJsonFile()) {
             mJsonParseMovementLIst.jsonToJavaObject();
         }
 
@@ -113,13 +123,22 @@ public class CreatNewMovementFragment extends Fragment {
             }
         });
 
+        this.mDemoVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                startActivityForResult(openGallery, REQUEST_CAMERA);
+            }
+        });
+
+
         this.mRecordMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                     mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, getContext());
-                    Log.d("Reply", ""+ mUICommand.feedbackFromServer());
+                    Log.d("Reply", "" + mUICommand.feedbackFromServer());
                     if (mUICommand.feedbackFromServer().equals("200 Animation mode is on".trim())) {
                         Toast.makeText(getContext(), "Animation mode is on", Toast.LENGTH_SHORT).show();
                     }
@@ -146,10 +165,12 @@ public class CreatNewMovementFragment extends Fragment {
         this.mStopRecordMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
-                if (mUICommand.feedbackFromServer().equals("200 Animation mode is on".trim())) {
-                    Toast.makeText(getContext(), "Animation mode is off", Toast.LENGTH_SHORT).show();
-                    mSaveMovement.setEnabled(true);
+                if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
+                    if (mUICommand.feedbackFromServer().equals("200 Animation mode is on".trim())) {
+                        Toast.makeText(getContext(), "Animation mode is off", Toast.LENGTH_SHORT).show();
+                        mSaveMovement.setEnabled(true);
+                    }
                 }
             }
         });
@@ -157,8 +178,13 @@ public class CreatNewMovementFragment extends Fragment {
         this.mSaveMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mName.isEmpty() && !mType.isEmpty()){
-                    mNewMovement = new Movement(0,mName,MovementType.valueOf(mType),"");
+                if (!mName.isEmpty() && !mType.isEmpty()) {
+                    if (mUri != null) {
+                        mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", mUri);
+                    } else {
+                        mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", null);
+                    }
+
                 }
 
                 mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
@@ -171,15 +197,26 @@ public class CreatNewMovementFragment extends Fragment {
 
     }
 
-    public void openAlertDialog(){
-        ConnectionDialog noConnectionAlert = new ConnectionDialog("Oops ! no robot found","OK","Please click 'OK' to choose a robot",new DialogInterface.OnClickListener() {
+    public void openAlertDialog() {
+        ConnectionDialog noConnectionAlert = new ConnectionDialog("Oops ! no robot found", "OK", "Please click 'OK' to choose a robot", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent homeActivity = new Intent(getActivity(), MainActivity.class);
-                homeActivity.putExtra ("connectToRobot","connectToRobotFragment");
+                homeActivity.putExtra("connectToRobot", "connectToRobotFragment");
                 startActivity(homeActivity);
             }
-        } );
-        noConnectionAlert.show(getFragmentManager(),"noConnectionAlert");
+        });
+        noConnectionAlert.show(getFragmentManager(), "noConnectionAlert");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == getActivity().RESULT_OK) {
+            mUri = data.getData().toString();
+            this.mURIText.setText("Uri: " + mUri.toString());
+            Log.d("PATH", "" + mUri);
+        }
     }
 }

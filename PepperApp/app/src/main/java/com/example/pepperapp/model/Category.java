@@ -1,5 +1,7 @@
 package com.example.pepperapp.model;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class Category {
         this.mMovementList = new ArrayList<>();
     }
 
-    public Category(MovementType mCategoryType,ArrayList<Movement> movementList) {
+    public Category(MovementType mCategoryType, ArrayList<Movement> movementList) {
         this.mCategoryType = mCategoryType;
         this.mCategoryTitle = mCategoryType.getmCategoryTitle();
         this.mMovementList = movementList;
@@ -44,16 +46,16 @@ public class Category {
         this.mMovementList = mMovementList;
     }
 
-    public void removeMovementFromCategory(int Id){ //id = index in the movement list
+    public void removeMovementFromCategory(int Id) { //id = index in the movement list
         mMovementList.remove(Id);
     }
 
-    public void addMovementToCategory(Movement movement){
+    public void addMovementToCategory(Movement movement) {
         mMovementList.add(movement);
     }
 
-    public void addMovementToCategory(int movementId,String movementName,MovementType movementType,String movementDescription){
-        mMovementList.add(new Movement(movementId,movementName,movementType,movementDescription));
+    public void addMovementToCategory(int movementId, String movementName, MovementType movementType, String movementDescription, String uri) {
+        mMovementList.add(new Movement(movementId, movementName, movementType, movementDescription, uri));
     }
 
 

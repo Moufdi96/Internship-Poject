@@ -2,6 +2,7 @@ package com.example.pepperapp.Controller;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +41,9 @@ public class ListActivityFragment extends Fragment {
         this.init();
         int index = 0;
         List listMovment = new ArrayList<>();
-        listMovment.add(new Movement(index, "..........................movement 1..........................",MovementType.NECK, ""));
-        listMovment.add(new Movement(index, "..........................movement 2..........................",MovementType.COMBINED, ""));
-        listMovment.add(new Movement(index, "..........................movement 3..........................",MovementType.WRIST, ""));
+        //listMovment.add(new Movement(index, "..........................movement 1..........................",MovementType.NECK, ""));
+        //listMovment.add(new Movement(index, "..........................movement 2..........................",MovementType.COMBINED, ""));
+        //listMovment.add(new Movement(index, "..........................movement 3..........................",MovementType.WRIST, ""));
         Activity act1 = new Activity("         ___________ Level 1 ____________",listMovment);
         Activity act2 = new Activity("         ___________ Level 2 ____________",listMovment);
         Activity act3 = new Activity("         ___________ Level 3 ____________",listMovment);
