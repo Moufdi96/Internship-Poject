@@ -40,7 +40,7 @@ public class ListMovementFragment extends Fragment {
     private ImageView mPlayMovement;
     private JsonParseMovementLIst mJsonParseMovementLIst;
     private Intent mIntent;
-    private MovementType mSelectedCategoryType;
+    private static MovementType mSelectedCategoryType;
     private TextView mTextView;
 
 
@@ -77,9 +77,9 @@ public class ListMovementFragment extends Fragment {
                 mPlayMovement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        //int position = mMovementListView.getSelectedItemPosition();
-                        //TODO
+                        String mvtName = mMovementListNames.get(index);
+                        String mvtVideoUri = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(index).getmURI();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new PlayActivity(mvtName)).commit();
                     }
                 });
 
@@ -94,7 +94,7 @@ public class ListMovementFragment extends Fragment {
                             mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
                             mMovementListNames.remove(position);
                             mMovementArrayAdapter1.notifyDataSetChanged();
-                            Toast.makeText(getContext(),"Successfully deleted",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Successfully deleted", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -126,5 +126,9 @@ public class ListMovementFragment extends Fragment {
         this.mMovementArrayAdapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mMovementListNames);
         this.mBAddToActivity.setBackgroundColor(Color.GRAY);
 
+    }
+
+    public static MovementType getSelectedCategoryType() {
+        return mSelectedCategoryType;
     }
 }
