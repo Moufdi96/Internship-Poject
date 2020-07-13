@@ -133,38 +133,7 @@ class MyClass(GeneratedClass):
 
     def onInput_onStop(self):
         self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="2" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Box name="TCPServer" id="1" localization="8" tooltip="" x="574" y="50"><bitmap>media/images/box/box-python-script.png</bitmap><script language="4"><content><![CDATA[from pyftpdlib.authorizers import DummyAuthorizer
-from pyftpdlib.handlers import FTPHandler
-from pyftpdlib.servers import FTPServer
-
-class MyClass(GeneratedClass):
-    def __init__(self):
-        GeneratedClass.__init__(self)
-        self.memProx = ALProxy('ALMemory')
-        self.memProx.declareEvent("NewAction")
-        self.hote ='10.42.0.15'
-        self.port = 1040
-
-    def onLoad(self):
-        #put initialization code here
-        self.authorizer = DummyAuthorizer()
-        self.authorizer.add_user("nao", "pepper", "C:\\", perm="elradfmw")
-
-
-    def onUnload(self):
-        #put clean-up code here
-
-     def onInput_onStart(self):
-        #self.onStopped() #activate the output of the box
-        handler = FTPHandler
-        handler.authorizer = self.authorizer
-        self.server = FTPServer((self.host, self.port), handler)
-        self.server.serve_forever()
-        #self.onStopped()
-
-    def onInput_onStop(self):
-        self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Box name="Set Speech Lang." id="4" localization="8" tooltip="Select the language you would like the robot to speak. Any following call to&#x0A;ALTextToSpeech (Say box for instance) will use this language." x="348" y="48"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[class MyClass(GeneratedClass):
+        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="2" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Box name="Set Speech Lang." id="4" localization="8" tooltip="Select the language you would like the robot to speak. Any following call to&#x0A;ALTextToSpeech (Say box for instance) will use this language." x="167" y="499"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self, False)
         self.tts = ALProxy("ALTextToSpeech")
@@ -314,4 +283,35 @@ class MyClass(GeneratedClass):
         self.onStopped()
     def onInput_onStop(self):
         self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Link inputowner="1" indexofinput="2" outputowner="4" indexofoutput="3" /><Link inputowner="4" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="0" indexofinput="6" outputowner="1" indexofoutput="4" /><Link inputowner="5" indexofinput="2" outputowner="0" indexofoutput="4" /><Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="5" /><Link inputowner="7" indexofinput="2" outputowner="5" indexofoutput="5" /><Link inputowner="7" indexofinput="3" outputowner="6" indexofoutput="4" /><Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="5" /><Link inputowner="8" indexofinput="2" outputowner="2" indexofoutput="4" /><Link inputowner="9" indexofinput="2" outputowner="8" indexofoutput="4" /><Link inputowner="3" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="7" indexofinput="2" outputowner="7" indexofoutput="4" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
+        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Box name="FTPServer" id="10" localization="8" tooltip="" x="627" y="55"><bitmap>media/images/box/box-python-script.png</bitmap><script language="4"><content><![CDATA[from pyftpdlib.authorizers import DummyAuthorizer
+from pyftpdlib.handlers import FTPHandler
+from pyftpdlib.servers import FTPServer
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+        self.memProx = ALProxy('ALMemory')
+        self.memProx.declareEvent("NewAction")
+        self.hote ='10.42.0.15'
+        self.port = 1040
+
+    def onLoad(self):
+        #put initialization code here
+        pass
+
+    def onUnload(self):
+        #put clean-up code here
+        pass
+
+    def onInput_onStart(self):
+        #self.onStopped() #activate the output of the box
+        self.authorizer = DummyAuthorizer()
+        self.authorizer.add_user("nao", "pepper", "C:\\", perm="elradfmw")
+        self.handler = FTPHandler
+        self.handler.authorizer = self.authorizer
+        self.server = FTPServer((self.hote, self.port), self.handler)
+        self.server.serve_forever()
+
+    def onInput_onStop(self):
+        self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
+        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Link inputowner="5" indexofinput="2" outputowner="0" indexofoutput="4" /><Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="5" /><Link inputowner="7" indexofinput="2" outputowner="5" indexofoutput="5" /><Link inputowner="7" indexofinput="3" outputowner="6" indexofoutput="4" /><Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="5" /><Link inputowner="8" indexofinput="2" outputowner="2" indexofoutput="4" /><Link inputowner="9" indexofinput="2" outputowner="8" indexofoutput="4" /><Link inputowner="3" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="7" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="0" indexofinput="6" outputowner="10" indexofoutput="4" /><Link inputowner="10" indexofinput="2" outputowner="0" indexofoutput="2" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
