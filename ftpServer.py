@@ -9,11 +9,11 @@ from pyftpdlib.servers import FTPServer
     #    self.respond("Playing movement")
         
 authorizer = DummyAuthorizer()
-authorizer.add_user("moufdi", "taha", "/home/moufdi_taha", perm="elradfmw")
+authorizer.add_user("nao", "pepper", "C:\\", perm="elradfmw")
 #authorizer.add_anonymous("/home/moufdi_taha", perm="elradfmw")
 
 handler = FTPHandler
 handler.authorizer = authorizer
 
-server = FTPServer(("134.245.109.74", 1040), handler)
+server = FTPServer(("10.42.0.15", 1040), handler)
 server.serve_forever()
