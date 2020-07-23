@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.pepperapp.R;
-import com.example.pepperapp.model.Movement;
 
 public class DemoVideoFragment extends Fragment {
 

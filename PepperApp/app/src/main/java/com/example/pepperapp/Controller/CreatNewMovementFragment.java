@@ -30,19 +30,12 @@ import androidx.fragment.app.Fragment;
 import com.example.pepperapp.Controller.FTPCoponents.FTPTransferData;
 import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
-import com.example.pepperapp.model.Activity;
-import com.example.pepperapp.model.ClientRequest;
 import com.example.pepperapp.model.Movement;
 import com.example.pepperapp.model.MovementType;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.apache.commons.net.ftp.FTPCmd;
-import org.apache.commons.net.ftp.FTPReply;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.SNIHostName;
 
 public class CreatNewMovementFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
@@ -55,7 +48,7 @@ public class CreatNewMovementFragment extends Fragment {
     private ArrayAdapter<String> mSpinnerAdapter;
     private List<String> mExerciseTypeList;
     private TextInputEditText mExerciseName;
-    private UICommand mUICommand;
+    private static UICommand mUICommand;
     private Movement mNewMovement;
     private Button mSaveMovement;
     private JsonParseMovementLIst mJsonParseMovementLIst;
@@ -152,7 +145,7 @@ public class CreatNewMovementFragment extends Fragment {
                     //if(animationModeStatus){
                     //mRecordMovement.setImageResource(R.drawable.ic_pause_circle);
                     //} else{
-                    //mRecordMovement.setImageResource(R.drawable.ic_play_circle);
+                    //mRecordMovement.setImageResource(R.drawable.);
                     //Toast.makeText(getContext(),"Animation mode deactivated",Toast.LENGTH_SHORT).show();
                     //}
 
@@ -167,7 +160,7 @@ public class CreatNewMovementFragment extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
-                    if (mUICommand.feedbackFromServer().equals("200 Animation mode is on".trim())) {
+                    if (mUICommand.feedbackFromServer().equals("200 Animation mode is off".trim())) {
                         Toast.makeText(getContext(), "Animation mode is off", Toast.LENGTH_SHORT).show();
                         mSaveMovement.setEnabled(true);
                     }

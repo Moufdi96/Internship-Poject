@@ -98,5 +98,4 @@ public class NewRobotFragment extends Fragment {
             }
         };
     }
-
 }

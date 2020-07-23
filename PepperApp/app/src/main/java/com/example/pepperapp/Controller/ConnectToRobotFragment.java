@@ -45,7 +45,7 @@ public class ConnectToRobotFragment extends Fragment {
     private JsonParseRobotList mRobotList;
     private List<String> mListRobotNames;
     private static FtpClient mFtpClient;
-    private UICommand mUICommand;
+    private static UICommand mUICommand;
     private Robot mLastConnectedRobot;
     private Switch mSwitch;
     private TextView mTextView;
@@ -217,6 +217,7 @@ public class ConnectToRobotFragment extends Fragment {
                 if (index >= 0 && !mSwitch.isChecked() && mFtpClient != null) {
                     mFtpClient.disconnect();
                     if (mFtpClient.isCLosingSuccessful()) {
+                        mUICommand.sendCommandToServer(UICommand.UIRequest.QUIT,getContext());
                         mLastConnectedRobot.setmConnectionStatus(false);
                         saveRobotPreference(mLastConnectedRobot);
                         mRobotList.getmRobotList().get(index).setmConnectionStatus(false);
@@ -236,6 +237,7 @@ public class ConnectToRobotFragment extends Fragment {
                             e.printStackTrace();
                         }
                         if (mFtpClient.isConnectionSuccessful() && mFtpClient.isLoginSuccessful()) {
+                            mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                             Log.d("Login", mFtpClient.getFTPClient().getReplyString());
                             mRobotList.getmRobotList().get(index).setmConnectionStatus(true);
                             mLastConnectedRobot = mRobotList.getmRobotList().get(index);
@@ -260,6 +262,10 @@ public class ConnectToRobotFragment extends Fragment {
 
         return mView;
 
+    }
+
+    public static UICommand getUICommand() {
+        return mUICommand;
     }
 
     @Override
