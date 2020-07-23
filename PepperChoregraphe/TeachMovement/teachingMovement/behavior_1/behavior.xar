@@ -163,7 +163,7 @@ class MyClass(GeneratedClass):
 
     def onInput_onStart(self,p):
         self.bIsRunning = True
-        if(p=='Create Movement'):
+        if(p=='ACTIVATE_ANIMATION_MODE'):
             self.create()
         try:
             sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
@@ -312,11 +312,20 @@ class MyClass(GeneratedClass):
             def on_login(self, username):
                 memProx.raiseEvent("NewAction","Hello !, my name is Max, I am connected to your phone, and I am ready to do what ever you ask !")
 
+            #def on_disconnect(self):
+                #"""Called when connection is closed."""
+                #onStopped()
+
+
+
         self.authorizer = DummyAuthorizer()
         self.authorizer.add_user("nao", "pepper", "/", perm="elradfmw")
         self.handler = MyHandler
         self.handler.authorizer = self.authorizer
         self.server = FTPServer((self.hote, self.port), self.handler)
+        #if(FTPHandler.commandFromServer == "ACTIVATE_ANIMATION_MODE"):
+         #   memProx.raiseEvent("NewAction","ACTIVATE_ANIMATION_MODE")
+
 
         print("__________________")
         self.server.serve_forever()

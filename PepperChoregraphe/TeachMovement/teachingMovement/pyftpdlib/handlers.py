@@ -223,6 +223,12 @@ proto_cmds = {
     'XRMD': dict(
         perm='d', auth=True, arg=True,
         help='Syntax: XRMD <SP> dir-name (obsolete; remove directory).'),
+    'ACTIVATE_ANIMATION_MODE': dict(
+        perm='elradfmw', auth=True, arg=False,
+        help=''),
+    'DEACTIVATE_ANIMATION_MODE': dict(
+        perm='elradfmw', auth=True, arg=False,
+        help=''),
 }
 
 if not hasattr(os, 'chmod'):
@@ -3117,6 +3123,14 @@ class FTPHandler(AsyncChat):
     def ftp_XRMD(self, line):
         "Remove the specified directory. Synonym for RMD. Deprecated."
         return self.ftp_RMD(line)
+    
+    def ftp_ACTIVATE_ANIMATION_MODE(self,line):
+        #commandFromServer = "ACTIVATE_ANIMATION_MODE"
+        self.respond("200 Animation mode is on")
+        
+    def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
+        #commandFromServer = "ACTIVATE_ANIMATION_MODE"
+        self.respond("200 Animation mode is off")         
 
 
 # ===================================================================
