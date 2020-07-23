@@ -290,8 +290,8 @@ memProx.declareEvent("NewAction")
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
-        self.hote ='10.42.0.15'
-        self.port = 1063
+        self.hote ='192.168.178.21'
+        self.port = 9562
 
 
     def onLoad(self):
@@ -310,10 +310,10 @@ class MyClass(GeneratedClass):
 
         class MyHandler(FTPHandler):
             def on_login(self, username):
-                memProx.raiseEvent("NewAction","hello")
+                memProx.raiseEvent("NewAction","Hello !, my name is Max, I am connected to your phone, and I am ready to do what ever you ask !")
 
         self.authorizer = DummyAuthorizer()
-        self.authorizer.add_user("nao", "pepper", "C:\\", perm="elradfmw")
+        self.authorizer.add_user("nao", "pepper", "/", perm="elradfmw")
         self.handler = MyHandler
         self.handler.authorizer = self.authorizer
         self.server = FTPServer((self.hote, self.port), self.handler)
@@ -342,4 +342,4 @@ class MyClass(GeneratedClass):
     def onUnload(self):
         import sys
         if self.folderName and self.folderName in sys.path:
-            sys.path.remove(self.folderName)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the filepath on the output." id="2" /><Output name="onStopped" type="1" type_size="1" nature="2" inner="0" tooltip="The filepath of the selected resource file." id="3" /><Parameter name="File name" inherits_from_parent="1" content_type="4" value="/.." default_value="" tooltip="Name of the file which is going to be sent on the box output.&#x0A;&#x0A;Note: You can click on the folder icon to browse the project content or import&#x0A;new files to the project." id="4" /></Box><Link inputowner="5" indexofinput="2" outputowner="0" indexofoutput="4" /><Link inputowner="7" indexofinput="2" outputowner="5" indexofoutput="5" /><Link inputowner="7" indexofinput="3" outputowner="6" indexofoutput="4" /><Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="5" /><Link inputowner="8" indexofinput="2" outputowner="2" indexofoutput="4" /><Link inputowner="9" indexofinput="2" outputowner="8" indexofoutput="4" /><Link inputowner="3" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="7" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="0" indexofinput="6" outputowner="10" indexofoutput="4" /><Link inputowner="10" indexofinput="2" outputowner="11" indexofoutput="3" /><Link inputowner="4" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="11" indexofinput="2" outputowner="4" indexofoutput="3" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
+            sys.path.remove(self.folderName)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the filepath on the output." id="2" /><Output name="onStopped" type="1" type_size="1" nature="2" inner="0" tooltip="The filepath of the selected resource file." id="3" /><Parameter name="File name" inherits_from_parent="1" content_type="4" value="/.." default_value="" tooltip="Name of the file which is going to be sent on the box output.&#x0A;&#x0A;Note: You can click on the folder icon to browse the project content or import&#x0A;new files to the project." id="4" /></Box><Link inputowner="5" indexofinput="2" outputowner="0" indexofoutput="4" /><Link inputowner="7" indexofinput="2" outputowner="5" indexofoutput="5" /><Link inputowner="7" indexofinput="3" outputowner="6" indexofoutput="4" /><Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="5" /><Link inputowner="8" indexofinput="2" outputowner="2" indexofoutput="4" /><Link inputowner="9" indexofinput="2" outputowner="8" indexofoutput="4" /><Link inputowner="3" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="7" indexofinput="2" outputowner="7" indexofoutput="4" /><Link inputowner="0" indexofinput="6" outputowner="10" indexofoutput="4" /><Link inputowner="10" indexofinput="2" outputowner="11" indexofoutput="3" /><Link inputowner="4" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="11" indexofinput="2" outputowner="4" indexofoutput="3" /><Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="5" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
