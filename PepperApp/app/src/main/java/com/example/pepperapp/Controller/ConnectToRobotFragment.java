@@ -281,6 +281,7 @@ public class ConnectToRobotFragment extends Fragment {
         editor.putString(LAST_SELECTED_ROBOT, gson.toJson(robot)).commit();
     }
 
+
     public Robot loadRobotPreference() {
         String json;
         Gson gson = new Gson();

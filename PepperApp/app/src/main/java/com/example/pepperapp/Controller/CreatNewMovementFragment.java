@@ -1,7 +1,9 @@
 package com.example.pepperapp.Controller;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,12 +34,16 @@ import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.Movement;
 import com.example.pepperapp.model.MovementType;
+import com.example.pepperapp.model.Robot;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreatNewMovementFragment extends Fragment {
+    private static final String SHARED_PREF = "sharedPref";
+    private static final String LAST_SELECTED_ROBOT = "lastSelectedRobot";
     private static final int REQUEST_CAMERA = 1;
     private View mView;
     private ImageView mRecordMovement;
@@ -56,6 +62,7 @@ public class CreatNewMovementFragment extends Fragment {
     private String mName;
     private String mType;
     private String mUri;
+    private SharedPreferences mSharedPreferences;
 
     @Nullable
     @Override
@@ -71,7 +78,8 @@ public class CreatNewMovementFragment extends Fragment {
         this.mURIText = (TextView) mView.findViewById(R.id.uri);
         this.mStopRecordMovement = (ImageView) mView.findViewById(R.id.stop_animation_mode);
         this.mSaveMovement = (Button) mView.findViewById(R.id.save_movement_button);
-        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext());
+        this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
         this.mExerciseTypeList.add(MovementType.NECK.toString());
         this.mExerciseTypeList.add(MovementType.ELBOW.toString());
         this.mExerciseTypeList.add(MovementType.FIST.toString());
@@ -182,6 +190,10 @@ public class CreatNewMovementFragment extends Fragment {
 
                 mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
                 mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
+                mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT, getContext());
+                if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
+                    Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                }
                 getActivity().onBackPressed();
             }
         });
@@ -212,4 +224,14 @@ public class CreatNewMovementFragment extends Fragment {
             Log.d("PATH", "" + mUri);
         }
     }
+
+    public Robot loadRobotPreference() {
+        String json;
+        Gson gson = new Gson();
+        json = this.mSharedPreferences.getString(LAST_SELECTED_ROBOT, "");
+        //json = json + "test";
+        Robot robot = gson.fromJson(json, Robot.class);
+        return robot;
+    }
+
 }

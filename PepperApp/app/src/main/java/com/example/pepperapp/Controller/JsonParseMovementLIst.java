@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.pepperapp.model.JsonFile;
 import com.example.pepperapp.model.Movement;
 import com.example.pepperapp.model.MovementType;
+import com.example.pepperapp.model.Robot;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -17,8 +18,8 @@ public class JsonParseMovementLIst extends JsonFile implements JsonFile.JsonPars
 
     private static final String JSON__LIST_FILE = "movement_ListFile.json";
     private Map<MovementType,List<Movement>> mMovementList;
-    public JsonParseMovementLIst(Context currentContext) {
-        super(currentContext, JSON__LIST_FILE);
+    public JsonParseMovementLIst(Context currentContext, Robot robot) {
+        super(currentContext, robot.getmRobotName().concat("_").concat(JSON__LIST_FILE));
         this.mMovementList = new HashMap<>();
         this.mMovementList.put(MovementType.NECK,new ArrayList<Movement>());
         this.mMovementList.put(MovementType.SHOULDER,new ArrayList<Movement>());
