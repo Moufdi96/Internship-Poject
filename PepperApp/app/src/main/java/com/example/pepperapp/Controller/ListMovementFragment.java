@@ -1,7 +1,9 @@
 package com.example.pepperapp.Controller;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +28,13 @@ import com.example.pepperapp.model.Movement;
 import com.example.pepperapp.model.MovementType;
 import com.example.pepperapp.model.Robot;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 public class ListMovementFragment extends Fragment {
+    private static final String SHARED_PREF = "sharedPref";
+    private static final String LAST_SELECTED_ROBOT = "lastSelectedRobot";
     private View mView;
     private ListView mListView;
     private Category mSelectedCategory;
@@ -38,6 +43,7 @@ public class ListMovementFragment extends Fragment {
     private FloatingActionButton mBAddToActivity;
     private ImageView mDeleteMovement;
     private ImageView mPlayMovement;
+    private SharedPreferences mSharedPreferences;
     private JsonParseMovementLIst mJsonParseMovementLIst;
     private Intent mIntent;
     private static MovementType mSelectedCategoryType;
@@ -116,7 +122,8 @@ public class ListMovementFragment extends Fragment {
         this.mIntent = getActivity().getIntent();
         this.mSelectedCategoryType = MovementType.valueOf(this.mIntent.getStringExtra("movement type"));
         this.mMovementListNames = new ArrayList<>();
-        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext());
+        this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
         this.mListView = (ListView) mView.findViewById(R.id.movement_list);
         this.mBAddToActivity = (FloatingActionButton) mView.findViewById(R.id.fab);
         this.mDeleteMovement = (ImageView) mView.findViewById(R.id.delete_button);
@@ -126,6 +133,16 @@ public class ListMovementFragment extends Fragment {
         this.mMovementArrayAdapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mMovementListNames);
         this.mBAddToActivity.setBackgroundColor(Color.GRAY);
 
+    }
+
+
+    public Robot loadRobotPreference() {
+        String json;
+        Gson gson = new Gson();
+        json = this.mSharedPreferences.getString(LAST_SELECTED_ROBOT, "");
+        //json = json + "test";
+        Robot robot = gson.fromJson(json, Robot.class);
+        return robot;
     }
 
     public static MovementType getSelectedCategoryType() {
