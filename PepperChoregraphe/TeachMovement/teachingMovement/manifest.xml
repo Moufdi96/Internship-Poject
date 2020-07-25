@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="teachingmovement-ab0ec4" version="0.0.0">
+<package version="0.0.0" uuid="teachingmovement-ab0ec4">
  <names>
-  <name lang="en_US">Untitled</name>
+  <name lang="en_US">PepperPhysio</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>

@@ -20,14 +20,14 @@ except ImportError:
 
 from ._compat import unicode
 
-
 # default logger
 logger = logging.getLogger('pyftpdlib')
 
 
 def _stderr_supports_color():
     color = False
-    if curses is not None and sys.stderr.isatty():
+    if curses is not None:
+        #and sys.stderr.isatty()
         try:
             curses.setupterm()
             if curses.tigetnum("colors") > 0:
