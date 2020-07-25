@@ -229,6 +229,12 @@ proto_cmds = {
     'DEACTIVATE_ANIMATION_MODE': dict(
         perm='elradfmw', auth=True, arg=False,
         help=''),
+    'SAVE': dict(
+        perm='elradfmw', auth=True, arg=False,
+        help=''),
+    'PLAY_MOVEMENT': dict(
+        perm='elradfmw', auth=True, arg=True,
+        help=''),
 }
 
 if not hasattr(os, 'chmod'):
@@ -3124,13 +3130,13 @@ class FTPHandler(AsyncChat):
         "Remove the specified directory. Synonym for RMD. Deprecated."
         return self.ftp_RMD(line)
     
-    def ftp_ACTIVATE_ANIMATION_MODE(self,line):
+    #def ftp_ACTIVATE_ANIMATION_MODE(self,line):
         #commandFromServer = "ACTIVATE_ANIMATION_MODE"
-        self.respond("200 Animation mode is on")
+        #self.respond("200 Animation mode is on")
         
-    def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
+    #def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
         #commandFromServer = "ACTIVATE_ANIMATION_MODE"
-        self.respond("200 Animation mode is off")         
+        #self.respond("200 Animation mode is off")         
 
 
 # ===================================================================

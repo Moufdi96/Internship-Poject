@@ -2,18 +2,37 @@ from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 
+class MyHandler(FTPHandler):
+    def on_login(self, username):
+        print("logged in")
 
-#class FTPHandler2 (FTPHandler):
-    
-   # def ftp_PLAY(self,line):
-    #    self.respond("Playing movement")
-        
+    def on_logout(self, username):
+        print("logged out")
+
+    def on_disconnect(self):
+        print("logged out")
+
+    def ftp_ACTIVATE_ANIMATION_MODE(self,line):
+        self.respond("200 Animation mode is on")
+
+    def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
+        self.respond("200 Animation mode is off")
+
+    def ftp_SAVE(self,line):
+        self.respond("200 Movement saved")
+
+    def ftp_PLAY_MOVEMENT(self,line):
+        self.respond("200 Movement started")
+        print("____________")
+        print(line)
+
 authorizer = DummyAuthorizer()
 authorizer.add_user("nao", "pepper", "C:\\", perm="elradfmw")
-#authorizer.add_anonymous("/home/moufdi_taha", perm="elradfmw")
-
-handler = FTPHandler
+handler = MyHandler
 handler.authorizer = authorizer
+server = FTPServer(("134.245.109.74", 1040), handler)
+        #if(FTPHandler.commandFromServer == "ACTIVATE_ANIMATION_MODE"):
+         #   memProx.raiseEvent("NewAction","ACTIVATE_ANIMATION_MODE")
 
-server = FTPServer(("10.42.0.15", 1040), handler)
+print("__________________")
 server.serve_forever()
