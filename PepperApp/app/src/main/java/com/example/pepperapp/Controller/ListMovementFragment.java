@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.Category;
 import com.example.pepperapp.model.Movement;
@@ -45,6 +46,7 @@ public class ListMovementFragment extends Fragment {
     private ImageView mPlayMovement;
     private SharedPreferences mSharedPreferences;
     private JsonParseMovementLIst mJsonParseMovementLIst;
+    private UICommand mUICommand;
     private Intent mIntent;
     private static MovementType mSelectedCategoryType;
     private TextView mTextView;
@@ -95,12 +97,25 @@ public class ListMovementFragment extends Fragment {
                     public void onClick(View v) {
                         index = -1;
                         if (!mMovementListNames.isEmpty()) {
-                            int size = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).size();
-                            mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).remove(position);
-                            mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
-                            mMovementListNames.remove(position);
-                            mMovementArrayAdapter1.notifyDataSetChanged();
-                            Toast.makeText(getContext(), "Successfully deleted", Toast.LENGTH_SHORT).show();
+                            if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
+                                mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
+                                String id = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(position).getmMovementId();
+                                mUICommand.sendCommandToServer(UICommand.UIRequest.DELETE_MOVEMENT,"", getContext());
+                                try {
+                                    Thread.currentThread().sleep(300);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (mUICommand.feedbackFromServer().equals("200 Movement deleted".trim())) {
+                                    //int size = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).size();
+                                    mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).remove(position);
+                                    mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
+                                    mMovementListNames.remove(position);
+                                    mMovementArrayAdapter1.notifyDataSetChanged();
+                                    Toast.makeText(getContext(), "Successfully deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
                     }
                 });
@@ -123,6 +138,7 @@ public class ListMovementFragment extends Fragment {
         this.mSelectedCategoryType = MovementType.valueOf(this.mIntent.getStringExtra("movement type"));
         this.mMovementListNames = new ArrayList<>();
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        this.mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
         this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
         this.mListView = (ListView) mView.findViewById(R.id.movement_list);
         this.mBAddToActivity = (FloatingActionButton) mView.findViewById(R.id.fab);

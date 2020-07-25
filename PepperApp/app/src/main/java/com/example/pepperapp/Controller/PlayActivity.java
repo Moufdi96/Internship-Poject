@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
 
 public class PlayActivity extends Fragment {
@@ -20,6 +22,7 @@ public class PlayActivity extends Fragment {
     private ImageView mPlayDemoVideo;
     private String mMvtName;
     private TextView mMvtNameText;
+    private UICommand mUICommand;
 
     public PlayActivity(String name) {
         this.mMvtName = name;
@@ -36,7 +39,13 @@ public class PlayActivity extends Fragment {
         this.mPlayInRobot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
+                    mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.PLAY_MOVEMENT, getContext());
+                    if (mUICommand.feedbackFromServer().equals("200 Movement started".trim())) {
+                        Toast.makeText(getContext(), "Movement started", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

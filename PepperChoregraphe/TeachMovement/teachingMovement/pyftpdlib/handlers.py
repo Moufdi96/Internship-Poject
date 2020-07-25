@@ -3129,6 +3129,9 @@ class FTPHandler(AsyncChat):
     def ftp_XRMD(self, line):
         "Remove the specified directory. Synonym for RMD. Deprecated."
         return self.ftp_RMD(line)
+
+    #def ftp_SAVE(self,line):
+        #self.respond("200 Movement saved")
     
     #def ftp_ACTIVATE_ANIMATION_MODE(self,line):
         #commandFromServer = "ACTIVATE_ANIMATION_MODE"

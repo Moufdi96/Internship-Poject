@@ -54,7 +54,7 @@ public class CreatNewMovementFragment extends Fragment {
     private ArrayAdapter<String> mSpinnerAdapter;
     private List<String> mExerciseTypeList;
     private TextInputEditText mExerciseName;
-    private static UICommand mUICommand;
+    private UICommand mUICommand;
     private Movement mNewMovement;
     private Button mSaveMovement;
     private JsonParseMovementLIst mJsonParseMovementLIst;
@@ -79,7 +79,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mStopRecordMovement = (ImageView) mView.findViewById(R.id.stop_animation_mode);
         this.mSaveMovement = (Button) mView.findViewById(R.id.save_movement_button);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
-        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(), loadRobotPreference());
         this.mExerciseTypeList.add(MovementType.NECK.toString());
         this.mExerciseTypeList.add(MovementType.ELBOW.toString());
         this.mExerciseTypeList.add(MovementType.FIST.toString());
@@ -90,6 +90,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mSpinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mExerciseTypeList);
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
         this.mSaveMovement.setEnabled(false);
+        this.mStopRecordMovement.setEnabled(false);
 
         if (mJsonParseMovementLIst.readJsonFile()) {
             mJsonParseMovementLIst.jsonToJavaObject();
@@ -132,16 +133,21 @@ public class CreatNewMovementFragment extends Fragment {
             }
         });
 
-
         this.mRecordMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                     mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, getContext());
-                    Log.d("Reply", "" + mUICommand.feedbackFromServer());
+                    try {
+                        Thread.currentThread().sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //Log.d("Reply", "" + mUICommand.feedbackFromServer());
                     if (mUICommand.feedbackFromServer().equals("200 Animation mode is on".trim())) {
                         Toast.makeText(getContext(), "Animation mode is on", Toast.LENGTH_SHORT).show();
+                        mStopRecordMovement.setEnabled(true);
                     }
 
                     //FTPTransferData ftpTransferData = new FTPTransferData(ConnectToRobotFragment.getmFtpClient().getFTPClient());
@@ -168,6 +174,11 @@ public class CreatNewMovementFragment extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
+                    try {
+                        Thread.currentThread().sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     if (mUICommand.feedbackFromServer().equals("200 Animation mode is off".trim())) {
                         Toast.makeText(getContext(), "Animation mode is off", Toast.LENGTH_SHORT).show();
                         mSaveMovement.setEnabled(true);
@@ -179,21 +190,31 @@ public class CreatNewMovementFragment extends Fragment {
         this.mSaveMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mName.isEmpty() && !mType.isEmpty()) {
-                    if (mUri != null) {
-                        mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", mUri);
-                    } else {
-                        mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", null);
+                if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE, getContext());
+                    try {
+                        Thread.currentThread().sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                    Log.d("FEEDBACK", mUICommand.feedbackFromServer());
 
+                    if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
+                        if (!mName.isEmpty() && !mType.isEmpty()) {
+                            if (mUri != null) {
+                                mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", mUri);
+                            } else {
+                                mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", null);
+                            }
+                            mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
+                            mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
+
+                        }
+                        Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-                mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
-                mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
-                mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT, getContext());
-                if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
-                    Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
-                }
+
                 getActivity().onBackPressed();
             }
         });
@@ -233,5 +254,6 @@ public class CreatNewMovementFragment extends Fragment {
         Robot robot = gson.fromJson(json, Robot.class);
         return robot;
     }
+
 
 }
