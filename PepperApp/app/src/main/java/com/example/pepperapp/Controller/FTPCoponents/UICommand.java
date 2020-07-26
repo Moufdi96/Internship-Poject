@@ -1,14 +1,16 @@
 package com.example.pepperapp.Controller.FTPCoponents;
 
 import android.content.Context;
+
 import org.apache.commons.net.ftp.FTPClient;
+
 import java.io.IOException;
 
 public class UICommand {
     private FTPClient mFTPClient;
 
     public enum UIRequest {
-        PLAY_MOVEMENT, CREATE_NEW_ACTIVITY, PLAY_ACTIVITY,PLAY,QUIT,ACTIVATE_ANIMATION_MODE,DEACTIVATE_ANIMATION_MODE,SAVE_MOVEMENT
+        PLAY_MOVEMENT, CREATE_NEW_ACTIVITY, PLAY_ACTIVITY, PLAY, QUIT, ACTIVATE_ANIMATION_MODE, DEACTIVATE_ANIMATION_MODE, SAVE
     }
 
     public UICommand(FTPClient ftpClient) {
@@ -29,6 +31,21 @@ public class UICommand {
         }).start();
     }
 
+    public void sendCommandToServer(final UIRequest command, final String mvtID, final Context c) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mFTPClient.sendCommand(command.toString(), mvtID);
+                    int s = mFTPClient.getReplyCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //Toast.makeText(c,"No connection to robot detected !",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
+
     /*public int feedbackFromServer() {
         int code = 0;
         code = mFTPClient.getReplyCode();
@@ -36,7 +53,8 @@ public class UICommand {
     }*/
 
     public String feedbackFromServer() {
-       return this.mFTPClient.getReplyString().trim();
+        String s = this.mFTPClient.getReplyString().trim();
+        return s;
     }
 
     public FTPClient getFTPClient() {

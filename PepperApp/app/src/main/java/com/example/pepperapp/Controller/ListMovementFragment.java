@@ -83,9 +83,9 @@ public class ListMovementFragment extends Fragment {
                 mPlayMovement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String mvtName = mMovementListNames.get(index);
+                        Movement movement = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(index);
                         String mvtVideoUri = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(index).getmURI();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new PlayActivity(mvtName)).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new PlayActivity(movement)).commit();
                     }
                 });
 

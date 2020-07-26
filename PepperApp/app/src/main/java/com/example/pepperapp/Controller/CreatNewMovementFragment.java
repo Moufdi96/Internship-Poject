@@ -79,7 +79,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mStopRecordMovement = (ImageView) mView.findViewById(R.id.stop_animation_mode);
         this.mSaveMovement = (Button) mView.findViewById(R.id.save_movement_button);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
-        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(), loadRobotPreference());
         this.mExerciseTypeList.add(MovementType.NECK.toString());
         this.mExerciseTypeList.add(MovementType.ELBOW.toString());
         this.mExerciseTypeList.add(MovementType.FIST.toString());
@@ -169,6 +169,18 @@ public class CreatNewMovementFragment extends Fragment {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
                     if (mUICommand.feedbackFromServer().equals("200 Animation mode is off".trim())) {
+                        if (!mName.isEmpty() && !mType.isEmpty()) {
+                            String id = "mvt_" + mJsonParseMovementLIst.getMovementList().size();
+                            if (mUri != null) {
+                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), "", mUri);
+                            } else {
+                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), "", null);
+                            }
+
+                            mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
+                            mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
+
+                        }
                         Toast.makeText(getContext(), "Animation mode is off", Toast.LENGTH_SHORT).show();
                         mSaveMovement.setEnabled(true);
                     }
@@ -179,20 +191,25 @@ public class CreatNewMovementFragment extends Fragment {
         this.mSaveMovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mName.isEmpty() && !mType.isEmpty()) {
-                    if (mUri != null) {
-                        mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", mUri);
-                    } else {
-                        mNewMovement = new Movement(0, mName, MovementType.valueOf(mType), "", null);
+                if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE, getContext());
+                    String fb = mUICommand.feedbackFromServer();
+                    int q=1;
+                    if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
+                        if (!mName.isEmpty() && !mType.isEmpty()) {
+                            String id = "mvt_" + mJsonParseMovementLIst.getMovementList().size();
+                            if (mUri != null) {
+                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), "", mUri);
+                            } else {
+                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), "", null);
+                            }
+
+                            mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
+                            mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
+
+                        }
+                        Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                     }
-
-                }
-
-                mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
-                mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
-                mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT, getContext());
-                if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
-                    Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 }
                 getActivity().onBackPressed();
             }

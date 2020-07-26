@@ -1,5 +1,6 @@
 package com.example.pepperapp.Controller;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,30 +13,44 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pepperapp.Controller.FTPCoponents.UICommand;
 import com.example.pepperapp.R;
+import com.example.pepperapp.model.Movement;
 
 public class PlayActivity extends Fragment {
     private View mView;
     private ImageView mPlayInRobot;
     private ImageView mPlayDemoVideo;
-    private String mMvtName;
+    //private String mMvtName;
+    //private String mMvtName;
+    private Movement mMovementToPlay;
     private TextView mMvtNameText;
+    private UICommand mUICommand;
 
-    public PlayActivity(String name) {
-        this.mMvtName = name;
+    public PlayActivity(Movement movement) {
+        this.mMovementToPlay = movement;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.play_activity_fragment,container,false);
-        this.mMvtNameText = (TextView)mView.findViewById(R.id.mvt_name);
-        this.mMvtNameText.setText(this.mMvtName);
-        this.mPlayInRobot = (ImageView)mView.findViewById(R.id.play_on_robot);
-        this.mPlayDemoVideo = (ImageView)mView.findViewById(R.id.demo_video_imview);
+        mView = inflater.inflate(R.layout.play_activity_fragment, container, false);
+        this.mMvtNameText = (TextView) mView.findViewById(R.id.mvt_name);
+        this.mMvtNameText.setText(this.mMovementToPlay.getmMovementName());
+        this.mPlayInRobot = (ImageView) mView.findViewById(R.id.play_on_robot);
+        this.mPlayDemoVideo = (ImageView) mView.findViewById(R.id.demo_video_imview);
+        mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
         this.mPlayInRobot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
+                    String fb ="";
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.PLAY_MOVEMENT, "mvt_8", getContext());
+                     fb = mUICommand.feedbackFromServer();
+                } else {
+                    openAlertDialog();
+                }
+
 
             }
         });
@@ -43,9 +58,21 @@ public class PlayActivity extends Fragment {
         this.mPlayDemoVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container,new DemoVideoFragment(),"DemoVideoFragment").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new DemoVideoFragment(), "DemoVideoFragment").commit();
             }
         });
         return mView;
+    }
+
+    public void openAlertDialog() {
+        ConnectionDialog noConnectionAlert = new ConnectionDialog("Oops ! no robot found", "OK", "Please click 'OK' to choose a robot", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent homeActivity = new Intent(getActivity(), MainActivity.class);
+                homeActivity.putExtra("connectToRobot", "connectToRobotFragment");
+                startActivity(homeActivity);
+            }
+        });
+        noConnectionAlert.show(getFragmentManager(), "noConnectionAlert");
     }
 }

@@ -50,7 +50,7 @@ public class Activity {
         mActivityMovements.add(movement);
     }
 
-    public void addMovementToActivity(int movementId, String movementName, MovementType movementType, String movementDescription, String uri) {
+    public void addMovementToActivity(String movementId, String movementName, MovementType movementType, String movementDescription, String uri) {
         mActivityMovements.add(new Movement(movementId, movementName, movementType, movementDescription, uri));
     }
 }

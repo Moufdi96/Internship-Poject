@@ -54,7 +54,7 @@ public class Category {
         mMovementList.add(movement);
     }
 
-    public void addMovementToCategory(int movementId, String movementName, MovementType movementType, String movementDescription, String uri) {
+    public void addMovementToCategory(String movementId, String movementName, MovementType movementType, String movementDescription, String uri) {
         mMovementList.add(new Movement(movementId, movementName, movementType, movementDescription, uri));
     }
 
