@@ -26,7 +26,7 @@ public class ActivityFragment extends Fragment {
         mEx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.activity_fragment_container,new PlayActivity(""),"playActivity").commit();
+                //getFragmentManager().beginTransaction().replace(R.id.activity_fragment_container,new PlayActivity(""),"playActivity").commit();
             }
         });
         return this.mView;

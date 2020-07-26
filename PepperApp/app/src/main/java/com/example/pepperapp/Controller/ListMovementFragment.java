@@ -85,9 +85,9 @@ public class ListMovementFragment extends Fragment {
                 mPlayMovement.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String mvtName = mMovementListNames.get(index);
+                        Movement movement = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(index);
                         String mvtVideoUri = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(index).getmURI();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new PlayActivity(mvtName)).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new PlayActivity(movement)).commit();
                     }
                 });
 
@@ -100,12 +100,13 @@ public class ListMovementFragment extends Fragment {
                             if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                                 mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                                 String id = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(position).getmMovementId();
-                                mUICommand.sendCommandToServer(UICommand.UIRequest.DELETE_MOVEMENT,"", getContext());
+                                mUICommand.sendCommandToServer(UICommand.UIRequest.DELETE_MOVEMENT,id, getContext());
                                 try {
                                     Thread.currentThread().sleep(300);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
+                                Log.d("FEEDBACK", mUICommand.feedbackFromServer());
 
                                 if (mUICommand.feedbackFromServer().equals("200 Movement deleted".trim())) {
                                     //int size = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).size();
