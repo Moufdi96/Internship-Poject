@@ -3149,8 +3149,11 @@ class FTPHandler(AsyncChat):
         #self.respond("200 Movement saved")
     
     #def ftp_ACTIVATE_ANIMATION_MODE(self,line):
-        #commandFromServer = "ACTIVATE_ANIMATION_MODE"
-        #self.respond("200 Animation mode is on")
+        #memProx.raiseEvent("ACTIVATE_ANIMATION_MODE",line)
+    #    print("____________________________________________________")
+    #   print(line)
+    #    self.respond("200 Animation mode is on")
+
         
     #def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
         #commandFromServer = "ACTIVATE_ANIMATION_MODE"
