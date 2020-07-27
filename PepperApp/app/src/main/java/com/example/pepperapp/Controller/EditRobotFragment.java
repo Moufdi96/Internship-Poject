@@ -108,9 +108,11 @@ public class EditRobotFragment extends Fragment {
         this.mJsonParseRobotList.getmRobotList().get(index).setmConnectionStatus(false);
         this.mJsonParseRobotList.writeToJsonFile(mJsonParseRobotList.javaObjectToJson());
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
-        Robot robot = this.loadRobotPreference();
-        robot.setmConnectionStatus(false);
-        this.saveRobotPreference(robot);
+        if(this.loadRobotPreference()!= null){
+            Robot robot = this.loadRobotPreference();
+            robot.setmConnectionStatus(false);
+            this.saveRobotPreference(robot);
+        }
     }
 
     public void saveRobotPreference(Robot robot) {

@@ -223,6 +223,21 @@ proto_cmds = {
     'XRMD': dict(
         perm='d', auth=True, arg=True,
         help='Syntax: XRMD <SP> dir-name (obsolete; remove directory).'),
+    'ACTIVATE_ANIMATION_MODE': dict(
+        perm='elradfmw', auth=True, arg=False,
+        help=''),
+    'DEACTIVATE_ANIMATION_MODE': dict(
+        perm='elradfmw', auth=True, arg=False,
+        help=''),
+    'SAVE_MOVEMENT': dict(
+        perm='elradfmw', auth=True, arg=True,
+        help=''),
+    'PLAY_MOVEMENT': dict(
+        perm='elradfmw', auth=True, arg=True,
+        help=''),
+    'DELETE_MOVEMENT': dict(
+        perm='elradfmw', auth=True, arg=True,
+        help=''),
 }
 
 if not hasattr(os, 'chmod'):
@@ -3117,6 +3132,29 @@ class FTPHandler(AsyncChat):
     def ftp_XRMD(self, line):
         "Remove the specified directory. Synonym for RMD. Deprecated."
         return self.ftp_RMD(line)
+
+    #def ftp_PLAY_MOVEMENT(self,line):
+        #print("movement started")
+        #print("movement id :")
+        #print(line)
+        #self.respond("200 Movement started")
+
+    #def ftp_DELETE_MOVEMENT(self,line):
+        #print("Movement delteted")
+        #print("movement id :")
+        #print(line)
+        #self.respond("200 Movement deleted")
+
+    #def ftp_SAVE(self,line):
+        #self.respond("200 Movement saved")
+    
+    #def ftp_ACTIVATE_ANIMATION_MODE(self,line):
+        #commandFromServer = "ACTIVATE_ANIMATION_MODE"
+        #self.respond("200 Animation mode is on")
+        
+    #def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
+        #commandFromServer = "ACTIVATE_ANIMATION_MODE"
+        #self.respond("200 Animation mode is off")         
 
 
 # ===================================================================
