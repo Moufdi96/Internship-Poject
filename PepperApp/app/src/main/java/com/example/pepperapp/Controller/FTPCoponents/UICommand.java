@@ -10,7 +10,7 @@ public class UICommand {
     private FTPClient mFTPClient;
 
     public enum UIRequest {
-        PLAY_MOVEMENT, DELETE_MOVEMENT,QUIT,ACTIVATE_ANIMATION_MODE,DEACTIVATE_ANIMATION_MODE,SAVE_MOVEMENT
+        PLAY_MOVEMENT, DELETE_MOVEMENT,QUIT,ACTIVATE_ANIMATION_MODE,DEACTIVATE_ANIMATION_MODE,SAVE_MOVEMENT,GENERATE_ID
     }
 
     public UICommand(FTPClient ftpClient) {
@@ -37,7 +37,6 @@ public class UICommand {
             public void run() {
                 try {
                     mFTPClient.sendCommand(command.toString(), mvtID);
-                    int s = mFTPClient.getReplyCode();
                 } catch (IOException e) {
                     e.printStackTrace();
                     //Toast.makeText(c,"No connection to robot detected !",Toast.LENGTH_LONG).show();

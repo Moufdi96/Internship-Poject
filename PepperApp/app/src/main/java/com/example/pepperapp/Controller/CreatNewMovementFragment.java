@@ -40,6 +40,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CreatNewMovementFragment extends Fragment {
     private static final String SHARED_PREF = "sharedPref";
@@ -87,6 +88,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mExerciseTypeList.add(MovementType.WRIST.toString());
         this.mExerciseTypeList.add(MovementType.COMBINED.toString());
         this.mSpinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mExerciseTypeList);
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
         this.mSaveMovement.setEnabled(false);
         this.mStopRecordMovement.setEnabled(false);
@@ -137,9 +139,12 @@ public class CreatNewMovementFragment extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
+                    //String id = "mvt_" + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
+                    String id = mvtIDGenerator();
+                    //mUICommand.sendCommandToServer(UICommand.UIRequest.GENERATE_ID,id, getContext());
                     mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, getContext());
                     try {
-                        Thread.currentThread().sleep(300);
+                        Thread.currentThread().sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -192,7 +197,7 @@ public class CreatNewMovementFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
-                    String id = "mvt_" + mType.toLowerCase() + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
+                    String id = mvtIDGenerator();
                     mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT,id, getContext());
                     try {
                         Thread.currentThread().sleep(300);
@@ -255,6 +260,15 @@ public class CreatNewMovementFragment extends Fragment {
         //json = json + "test";
         Robot robot = gson.fromJson(json, Robot.class);
         return robot;
+    }
+
+    public String mvtIDGenerator(){
+        int size = 0;
+        for(Map.Entry<MovementType,List<Movement>> e : mJsonParseMovementLIst.getMovementList().entrySet()){
+            size += e.getValue().size();
+        }
+        String id = "mvt_" + size;
+        return id;
     }
 
 
