@@ -238,6 +238,9 @@ proto_cmds = {
     'DELETE_MOVEMENT': dict(
         perm='elradfmw', auth=True, arg=True,
         help=''),
+    #'GENERATE_ID': dict(
+    #    perm='elradfmw', auth=True, arg=True,
+    #    help=''),
 }
 
 if not hasattr(os, 'chmod'):
@@ -3132,6 +3135,19 @@ class FTPHandler(AsyncChat):
     def ftp_XRMD(self, line):
         "Remove the specified directory. Synonym for RMD. Deprecated."
         return self.ftp_RMD(line)
+        
+    #def ftp_ACTIVATE_ANIMATION_MODE(self,line):
+        #memProx.raiseEvent("ACTIVATE_ANIMATION_MODE",str(line))
+        #print("____________________________________________________")
+        #print(line)
+        #self.respond("200 Animation mode is on")
+    
+    def ftp_GENERATE_ID(self,line):
+        print("____________________________________________________")
+        print(line)
+        #memProx.raiseEvent("GENERATE_ID",str(line))
+        self.respond("200 ID generated")
+
 
     #def ftp_PLAY_MOVEMENT(self,line):
         #print("movement started")
