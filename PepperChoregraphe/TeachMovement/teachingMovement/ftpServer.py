@@ -15,6 +15,7 @@ class MyHandler(FTPHandler):
     def ftp_ACTIVATE_ANIMATION_MODE(self,line):
         print("animation mode on")
         self.respond("200 Animation mode is on")
+        print(line)
         #self.respond("200 Animation mode is on")
 
     def ftp_DEACTIVATE_ANIMATION_MODE(self,line):
@@ -41,7 +42,7 @@ authorizer = DummyAuthorizer()
 authorizer.add_user("nao", "pepper", "/", perm="elradfmw")
 handler = MyHandler
 handler.authorizer = authorizer
-server = FTPServer(("134.245.109.74", 1041), handler)
+server = FTPServer(('192.168.178.161', 9530), handler)
         #if(FTPHandler.commandFromServer == "ACTIVATE_ANIMATION_MODE"):
          #   memProx.raiseEvent("NewAction","ACTIVATE_ANIMATION_MODE")
 
