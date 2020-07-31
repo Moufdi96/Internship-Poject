@@ -88,7 +88,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mExerciseTypeList.add(MovementType.WRIST.toString());
         this.mExerciseTypeList.add(MovementType.COMBINED.toString());
         this.mSpinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mExerciseTypeList);
-        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(),loadRobotPreference());
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(), loadRobotPreference());
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
         this.mSaveMovement.setEnabled(false);
         this.mStopRecordMovement.setEnabled(false);
@@ -198,7 +198,7 @@ public class CreatNewMovementFragment extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     String id = mvtIDGenerator();
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT,id, getContext());
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT, id, getContext());
                     try {
                         Thread.currentThread().sleep(300);
                     } catch (InterruptedException e) {
@@ -262,12 +262,34 @@ public class CreatNewMovementFragment extends Fragment {
         return robot;
     }
 
-    public String mvtIDGenerator(){
+    public String mvtIDGenerator() {
         int size = 0;
-        for(Map.Entry<MovementType,List<Movement>> e : mJsonParseMovementLIst.getMovementList().entrySet()){
+        for (Map.Entry<MovementType, List<Movement>> e : mJsonParseMovementLIst.getMovementList().entrySet()) {
             size += e.getValue().size();
         }
-        String id = "mvt_" + size;
+        String id = "";
+        boolean t = false;
+        for (int i = 0; i < size; i++) {
+            if (("mvt_" + size).equals(mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).get(i).getmMovementId())) {
+                t = true;
+                break;
+            }
+        }
+
+        if (t == false) {
+            id = "mvt_" + size;
+            return id;
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (!("mvt_" + i).equals(mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).get(i).getmMovementId())) {
+                    id = "mvt_" + i;
+                    return id;
+                }
+            }
+
+        }
+
+
         return id;
     }
 
