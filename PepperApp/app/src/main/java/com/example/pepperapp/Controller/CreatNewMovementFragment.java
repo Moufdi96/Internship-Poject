@@ -92,6 +92,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
         this.mSaveMovement.setEnabled(false);
         this.mStopRecordMovement.setEnabled(false);
+        this.mRecordMovement.setEnabled(false);
 
         if (mJsonParseMovementLIst.readJsonFile()) {
             mJsonParseMovementLIst.jsonToJavaObject();
@@ -111,6 +112,9 @@ public class CreatNewMovementFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         mType = (String) parent.getItemAtPosition(position);
+                        if(mType !=null && !mType.isEmpty()){
+                            mRecordMovement.setEnabled(true);
+                        }
                     }
 
                     @Override
@@ -142,7 +146,7 @@ public class CreatNewMovementFragment extends Fragment {
                     //String id = "mvt_" + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
                     String id = mvtIDGenerator();
                     //mUICommand.sendCommandToServer(UICommand.UIRequest.GENERATE_ID,id, getContext());
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, getContext());
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, id, getContext());
                     try {
                         Thread.currentThread().sleep(2000);
                     } catch (InterruptedException e) {
@@ -174,7 +178,7 @@ public class CreatNewMovementFragment extends Fragment {
         });
 
         this.mStopRecordMovement.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override 
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
@@ -263,7 +267,7 @@ public class CreatNewMovementFragment extends Fragment {
     }
 
     public String mvtIDGenerator() {
-        int size = 0;
+        /*int size = 0;
         for (Map.Entry<MovementType, List<Movement>> e : mJsonParseMovementLIst.getMovementList().entrySet()) {
             size += e.getValue().size();
         }
@@ -287,9 +291,9 @@ public class CreatNewMovementFragment extends Fragment {
                 }
             }
 
-        }
+        }*/
 
-
+        String id = "mvt_" + mType + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
         return id;
     }
 
