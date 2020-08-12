@@ -102,7 +102,7 @@ public class ListMovementFragment extends Fragment {
                                 String id = mJsonParseMovementLIst.getMovementList().get(mSelectedCategoryType).get(position).getmMovementId();
                                 mUICommand.sendCommandToServer(UICommand.UIRequest.DELETE_MOVEMENT,id, getContext());
                                 try {
-                                    Thread.currentThread().sleep(300);
+                                    Thread.currentThread().sleep(1000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -115,6 +115,8 @@ public class ListMovementFragment extends Fragment {
                                     mMovementListNames.remove(position);
                                     mMovementArrayAdapter1.notifyDataSetChanged();
                                     Toast.makeText(getContext(), "Successfully deleted", Toast.LENGTH_SHORT).show();
+                                } else{
+                                    Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

@@ -40,6 +40,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CreatNewMovementFragment extends Fragment {
     private static final String SHARED_PREF = "sharedPref";
@@ -87,9 +88,11 @@ public class CreatNewMovementFragment extends Fragment {
         this.mExerciseTypeList.add(MovementType.WRIST.toString());
         this.mExerciseTypeList.add(MovementType.COMBINED.toString());
         this.mSpinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mExerciseTypeList);
+        this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(), loadRobotPreference());
         this.mTypeSpinner.setAdapter(mSpinnerAdapter);
         this.mSaveMovement.setEnabled(false);
         this.mStopRecordMovement.setEnabled(false);
+        this.mRecordMovement.setEnabled(false);
 
         if (mJsonParseMovementLIst.readJsonFile()) {
             mJsonParseMovementLIst.jsonToJavaObject();
@@ -109,6 +112,9 @@ public class CreatNewMovementFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         mType = (String) parent.getItemAtPosition(position);
+                        if(mType !=null && !mType.isEmpty()){
+                            mRecordMovement.setEnabled(true);
+                        }
                     }
 
                     @Override
@@ -137,9 +143,12 @@ public class CreatNewMovementFragment extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, getContext());
+                    //String id = "mvt_" + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
+                    String id = mvtIDGenerator();
+                    //mUICommand.sendCommandToServer(UICommand.UIRequest.GENERATE_ID,id, getContext());
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, id, getContext());
                     try {
-                        Thread.currentThread().sleep(300);
+                        Thread.currentThread().sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -169,7 +178,7 @@ public class CreatNewMovementFragment extends Fragment {
         });
 
         this.mStopRecordMovement.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override 
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
@@ -192,8 +201,8 @@ public class CreatNewMovementFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
-                    String id = "mvt_" + mType.toLowerCase() + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT,id, getContext());
+                    String id = mvtIDGenerator();
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT, id, getContext());
                     try {
                         Thread.currentThread().sleep(300);
                     } catch (InterruptedException e) {
@@ -255,6 +264,37 @@ public class CreatNewMovementFragment extends Fragment {
         //json = json + "test";
         Robot robot = gson.fromJson(json, Robot.class);
         return robot;
+    }
+
+    public String mvtIDGenerator() {
+        /*int size = 0;
+        for (Map.Entry<MovementType, List<Movement>> e : mJsonParseMovementLIst.getMovementList().entrySet()) {
+            size += e.getValue().size();
+        }
+        String id = "";
+        boolean t = false;
+        for (int i = 0; i < size; i++) {
+            if (("mvt_" + size).equals(mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).get(i).getmMovementId())) {
+                t = true;
+                break;
+            }
+        }
+
+        if (t == false) {
+            id = "mvt_" + size;
+            return id;
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (!("mvt_" + i).equals(mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).get(i).getmMovementId())) {
+                    id = "mvt_" + i;
+                    return id;
+                }
+            }
+
+        }*/
+
+        String id = "mvt_" + mType + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
+        return id;
     }
 
 

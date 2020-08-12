@@ -27,6 +27,17 @@
         <File name="test_ioloop" src="pyftpdlib/test/test_ioloop.py" />
         <File name="test_misc" src="pyftpdlib/test/test_misc.py" />
         <File name="test_servers" src="pyftpdlib/test/test_servers.py" />
+        <File name="data" src="behavior_1/data.tar" />
+        <File name="ftpServer" src="ftpServer.py" />
+        <File name="__init__.cpython-37" src="pyftpdlib/__pycache__/__init__.cpython-37.pyc" />
+        <File name="_compat.cpython-37" src="pyftpdlib/__pycache__/_compat.cpython-37.pyc" />
+        <File name="authorizers.cpython-37" src="pyftpdlib/__pycache__/authorizers.cpython-37.pyc" />
+        <File name="filesystems.cpython-37" src="pyftpdlib/__pycache__/filesystems.cpython-37.pyc" />
+        <File name="handlers.cpython-37" src="pyftpdlib/__pycache__/handlers.cpython-37.pyc" />
+        <File name="ioloop.cpython-37" src="pyftpdlib/__pycache__/ioloop.cpython-37.pyc" />
+        <File name="log.cpython-37" src="pyftpdlib/__pycache__/log.cpython-37.pyc" />
+        <File name="prefork.cpython-37" src="pyftpdlib/__pycache__/prefork.cpython-37.pyc" />
+        <File name="servers.cpython-37" src="pyftpdlib/__pycache__/servers.cpython-37.pyc" />
     </Resources>
     <Topics />
     <IgnoredPaths />

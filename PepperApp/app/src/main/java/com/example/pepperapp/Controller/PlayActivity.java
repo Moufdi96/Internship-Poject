@@ -48,17 +48,19 @@ public class PlayActivity extends Fragment {
         this.mPlayInRobot = (ImageView) mView.findViewById(R.id.play_on_robot);
         //this.mJsonParseMovementLIst = new JsonParseMovementLIst(getContext(), loadRobotPreference());
         this.mPlayDemoVideo = (ImageView) mView.findViewById(R.id.demo_video_imview);
-        if (mJsonParseMovementLIst.readJsonFile()) {
-            mJsonParseMovementLIst.jsonToJavaObject();
-        }
-        
+
+
+        //if (mJsonParseMovementLIst.readJsonFile()) {
+         //   mJsonParseMovementLIst.jsonToJavaObject();
+        //}
+
         this.mPlayInRobot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                     try {
-                        Thread.currentThread().sleep(500);
+                        Thread.currentThread().sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
