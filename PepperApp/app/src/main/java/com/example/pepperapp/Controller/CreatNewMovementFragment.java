@@ -49,6 +49,7 @@ public class CreatNewMovementFragment extends Fragment {
     private View mView;
     private ImageView mRecordMovement;
     private ImageView mStopRecordMovement;
+    private TextInputEditText mExerciseInstructions;
     private ImageButton mDemoVideo;
     private VideoView videoView;
     private Spinner mTypeSpinner;
@@ -63,6 +64,7 @@ public class CreatNewMovementFragment extends Fragment {
     private String mName;
     private String mType;
     private String mUri;
+    private String mInstructions;
     private SharedPreferences mSharedPreferences;
 
     @Nullable
@@ -79,6 +81,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mURIText = (TextView) mView.findViewById(R.id.uri);
         this.mStopRecordMovement = (ImageView) mView.findViewById(R.id.stop_animation_mode);
         this.mSaveMovement = (Button) mView.findViewById(R.id.save_movement_button);
+        this.mExerciseInstructions = (mView).findViewById(R.id.add_Instructions);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         this.mExerciseTypeList.add(MovementType.NECK.toString());
         this.mExerciseTypeList.add(MovementType.ELBOW.toString());
@@ -93,6 +96,7 @@ public class CreatNewMovementFragment extends Fragment {
         this.mSaveMovement.setEnabled(false);
         this.mStopRecordMovement.setEnabled(false);
         this.mRecordMovement.setEnabled(false);
+        this.mInstructions = "";
 
         if (mJsonParseMovementLIst.readJsonFile()) {
             mJsonParseMovementLIst.jsonToJavaObject();
@@ -130,6 +134,25 @@ public class CreatNewMovementFragment extends Fragment {
             }
         });
 
+        this.mExerciseInstructions.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mInstructions = mExerciseInstructions.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
         this.mDemoVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +171,7 @@ public class CreatNewMovementFragment extends Fragment {
                     //mUICommand.sendCommandToServer(UICommand.UIRequest.GENERATE_ID,id, getContext());
                     mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, id, getContext());
                     try {
-                        Thread.currentThread().sleep(2000);
+                        Thread.currentThread().sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -178,7 +201,7 @@ public class CreatNewMovementFragment extends Fragment {
         });
 
         this.mStopRecordMovement.setOnClickListener(new View.OnClickListener() {
-            @Override 
+            @Override
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand.sendCommandToServer(UICommand.UIRequest.DEACTIVATE_ANIMATION_MODE, getContext());
@@ -213,9 +236,9 @@ public class CreatNewMovementFragment extends Fragment {
                     if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
                         if (!mName.isEmpty() && !mType.isEmpty()) {
                             if (mUri != null) {
-                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), "", mUri);
+                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), mInstructions, mUri);
                             } else {
-                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), "", null);
+                                mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), mInstructions, "");
                             }
                             mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
                             mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());

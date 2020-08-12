@@ -59,14 +59,17 @@ public class PlayActivity extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
+                    String id = mMovementToPlay.getmMovementId();
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.PLAY_MOVEMENT, id, getContext());
                     try {
                         Thread.currentThread().sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    String id = mMovementToPlay.getmMovementId();
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.PLAY_MOVEMENT, id, getContext());
+
                     if (mUICommand.feedbackFromServer().equals("200 Movement started".trim())) {
+                        String instructions = mMovementToPlay.getmMovementDescription();
+                        mUICommand.sendCommandToServer(UICommand.UIRequest.SEND_INSTRUCTIONS, instructions, getContext());
                         Toast.makeText(getContext(), "Movement started", Toast.LENGTH_SHORT).show();
                     }
                 }
