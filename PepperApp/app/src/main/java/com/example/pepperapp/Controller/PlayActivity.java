@@ -38,6 +38,7 @@ public class PlayActivity extends Fragment {
         this.mMovementToPlay = movement;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class PlayActivity extends Fragment {
         if (mJsonParseMovementLIst.readJsonFile()) {
             mJsonParseMovementLIst.jsonToJavaObject();
         }
-
+        
         this.mPlayInRobot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
