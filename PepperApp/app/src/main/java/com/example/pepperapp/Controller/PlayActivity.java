@@ -34,6 +34,7 @@ public class PlayActivity extends Fragment {
     private TextView mMvtNameText;
     private UICommand mUICommand;
     private JsonParseMovementLIst mJsonParseMovementLIst;
+
     public PlayActivity(Movement movement) {
         this.mMovementToPlay = movement;
     }
@@ -51,7 +52,7 @@ public class PlayActivity extends Fragment {
 
 
         //if (mJsonParseMovementLIst.readJsonFile()) {
-         //   mJsonParseMovementLIst.jsonToJavaObject();
+        //   mJsonParseMovementLIst.jsonToJavaObject();
         //}
 
         this.mPlayInRobot.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +61,9 @@ public class PlayActivity extends Fragment {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     mUICommand = new UICommand(ConnectToRobotFragment.getmFtpClient().getFTPClient());
                     String id = mMovementToPlay.getmMovementId();
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.PLAY_MOVEMENT, id, getContext());
+                    String instructions = "";
+                    instructions = mMovementToPlay.getmMovementDescription();
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.PLAY_MOVEMENT, id,instructions, getContext());
                     try {
                         Thread.currentThread().sleep(300);
                     } catch (InterruptedException e) {
@@ -68,8 +71,8 @@ public class PlayActivity extends Fragment {
                     }
 
                     if (mUICommand.feedbackFromServer().equals("200 Movement started".trim())) {
-                        String instructions = mMovementToPlay.getmMovementDescription();
-                        mUICommand.sendCommandToServer(UICommand.UIRequest.SEND_INSTRUCTIONS, instructions, getContext());
+                        //String instructions = mMovementToPlay.getmMovementDescription();
+                        //mUICommand.sendCommandToServer(UICommand.UIRequest.SEND_INSTRUCTIONS, instructions, getContext());
                         Toast.makeText(getContext(), "Movement started", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -79,7 +82,7 @@ public class PlayActivity extends Fragment {
         this.mPlayDemoVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMovementToPlay.getmURI()!=null){
+                if (mMovementToPlay.getmURI() != null) {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list_container, new DemoVideoFragment(), "DemoVideoFragment").commit();
                 }
             }

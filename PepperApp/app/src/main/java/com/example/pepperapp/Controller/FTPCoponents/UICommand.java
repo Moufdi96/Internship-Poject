@@ -45,6 +45,21 @@ public class UICommand {
         }).start();
     }
 
+    public void sendCommandToServer(final UIRequest command,final String mvtID, final String instruction, final Context c) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String args = mvtID+"|"+instruction;
+                    mFTPClient.sendCommand(command.toString(), args);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //Toast.makeText(c,"No connection to robot detected !",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
+
     /*public int feedbackFromServer() {
         int code = 0;
         code = mFTPClient.getReplyCode();
