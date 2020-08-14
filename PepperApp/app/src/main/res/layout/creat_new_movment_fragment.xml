@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -95,7 +95,7 @@
                     android:background="@drawable/ic_baseline_attach_file_24"
                     android:backgroundTint="@color/colorAccent"></ImageButton>
 
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -151,7 +151,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:orientation="horizontal">

@@ -16,15 +16,27 @@ import com.example.pepperapp.R;
 
 public class ConnectionDialog extends AppCompatDialogFragment {
     private String mTitle;
-    private String mButtonName;
-    private String mMessage;
+    private String mPositiveButton;
+    private String mNegativeButton;
+    private int mButtonNumber;
+    private String mMessage;;
     private DialogInterface.OnClickListener mListner;
 
     public ConnectionDialog(String title, String buttonName, String message, DialogInterface.OnClickListener listner) {
         this.mTitle = title;
-        this.mButtonName = buttonName;
+        this.mPositiveButton = buttonName;
         this.mMessage = message;
         this.mListner = listner;
+        this.mButtonNumber = 1;
+    }
+
+    public ConnectionDialog(String title, String positiveButton, String negativeButton, String message, DialogInterface.OnClickListener listner) {
+        this.mTitle = title;
+        this.mNegativeButton = negativeButton;
+        this.mPositiveButton = positiveButton;
+        this.mMessage = message;
+        this.mListner = listner;
+        this.mButtonNumber = 2;
     }
 
     @NonNull
@@ -32,8 +44,13 @@ public class ConnectionDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(this.mTitle)
-                .setMessage(mMessage)
-                .setPositiveButton(mButtonName,mListner);
+                .setMessage(mMessage);
+        if(this.mButtonNumber == 1){
+            builder.setPositiveButton(mPositiveButton,mListner);
+        } else if(this.mButtonNumber == 2) {
+            builder.setPositiveButton(mPositiveButton,mListner)
+            .setNegativeButton(mNegativeButton,mListner);
+        }
         return builder.create();
     }
 }

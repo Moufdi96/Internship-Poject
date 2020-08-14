@@ -1,5 +1,6 @@
 package com.example.pepperapp.Controller;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,8 +51,8 @@ public class CreatNewMovementFragment extends Fragment {
     private ImageView mRecordMovement;
     private ImageView mStopRecordMovement;
     private TextInputEditText mExerciseInstructions;
-    private ImageButton mDemoVideo;
-    private VideoView videoView;
+    //private ImageButton mDemoVideo;
+    //private VideoView videoView;
     private Spinner mTypeSpinner;
     private ArrayAdapter<String> mSpinnerAdapter;
     private List<String> mExerciseTypeList;
@@ -60,10 +61,10 @@ public class CreatNewMovementFragment extends Fragment {
     private Movement mNewMovement;
     private Button mSaveMovement;
     private JsonParseMovementLIst mJsonParseMovementLIst;
-    private TextView mURIText;
+    //private TextView mURIText;
     private String mName;
     private String mType;
-    private String mUri;
+    //private String mUri;
     private String mInstructions;
     private SharedPreferences mSharedPreferences;
 
@@ -76,9 +77,9 @@ public class CreatNewMovementFragment extends Fragment {
         this.mExerciseTypeList = new ArrayList<>();
         this.mExerciseTypeList.add("");
         this.mExerciseName = mView.findViewById(R.id.exercise_name);
-        this.mDemoVideo = (ImageButton) mView.findViewById(R.id.demo_video);
+        //this.mDemoVideo = (ImageButton) mView.findViewById(R.id.demo_video);
         this.mRecordMovement = (ImageView) mView.findViewById(R.id.animation_mode);
-        this.mURIText = (TextView) mView.findViewById(R.id.uri);
+        //this.mURIText = (TextView) mView.findViewById(R.id.uri);
         this.mStopRecordMovement = (ImageView) mView.findViewById(R.id.stop_animation_mode);
         this.mSaveMovement = (Button) mView.findViewById(R.id.save_movement_button);
         this.mExerciseInstructions = (mView).findViewById(R.id.add_Instructions);
@@ -153,13 +154,13 @@ public class CreatNewMovementFragment extends Fragment {
 
 
 
-        this.mDemoVideo.setOnClickListener(new View.OnClickListener() {
+        /*this.mDemoVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent openGallery = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 startActivityForResult(openGallery, REQUEST_CAMERA);
             }
-        });
+        });*/
 
         this.mRecordMovement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,16 +236,19 @@ public class CreatNewMovementFragment extends Fragment {
 
                     if (mUICommand.feedbackFromServer().equals("200 Movement saved".trim())) {
                         if (!mName.isEmpty() && !mType.isEmpty()) {
-                            if (mUri != null) {
+                            mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), mInstructions, "");
+                            /*if (mUri != null) {
                                 mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), mInstructions, mUri);
                             } else {
                                 mNewMovement = new Movement(id, mName, MovementType.valueOf(mType), mInstructions, "");
-                            }
-                            mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
-                            mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
-
+                            }*/
+                            /*mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
+                            mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());*/
                         }
                         Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                        openVideoDialog();
+                        mJsonParseMovementLIst.getMovementList().get(mNewMovement.getmMovementType()).add(mNewMovement);
+                        mJsonParseMovementLIst.writeToJsonFile(mJsonParseMovementLIst.javaObjectToJson());
                     }
                 }
 
@@ -269,14 +273,29 @@ public class CreatNewMovementFragment extends Fragment {
         noConnectionAlert.show(getFragmentManager(), "noConnectionAlert");
     }
 
+    public void openVideoDialog() {
+        ConnectionDialog noConnectionAlert = new ConnectionDialog("Demo Video", "Yes", "No", "Would you like to add a demo Video for the robot performing this exercise ?", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == AlertDialog.BUTTON_POSITIVE){
+                    Intent openGallery = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    startActivityForResult(openGallery, REQUEST_CAMERA);
+                }else{
+
+                }
+            }
+        });
+
+                noConnectionAlert.show(getFragmentManager(), "noConnectionAlert");
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == getActivity().RESULT_OK) {
-            mUri = data.getData().toString();
-            this.mURIText.setText("Uri: " + mUri.toString());
-            Log.d("PATH", "" + mUri);
+            String uri = data.getData().toString();
+            mNewMovement.setmURI(uri);
         }
     }
 
