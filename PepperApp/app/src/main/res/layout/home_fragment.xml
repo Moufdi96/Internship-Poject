@@ -131,6 +131,7 @@
                 app:cardElevation="13dp">
 
                 <ImageView
+                    android:id="@+id/monitoring"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/monitor"></ImageView>
