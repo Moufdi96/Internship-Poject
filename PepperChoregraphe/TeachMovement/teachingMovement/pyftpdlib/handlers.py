@@ -223,9 +223,6 @@ proto_cmds = {
     'XRMD': dict(
         perm='d', auth=True, arg=True,
         help='Syntax: XRMD <SP> dir-name (obsolete; remove directory).'),
-    'ACTIVATE_ANIMATION_MODE': dict(
-        perm='elradfmw', auth=True, arg=False,
-        help=''),
     'DEACTIVATE_ANIMATION_MODE': dict(
         perm='elradfmw', auth=True, arg=False,
         help=''),
@@ -241,6 +238,9 @@ proto_cmds = {
     #'GENERATE_ID': dict(
     #    perm='elradfmw', auth=True, arg=True,
     #    help=''),
+    'ACTIVATE_ANIMATION_MODE': dict(
+         perm='elradfmw', auth=True, arg=TRUE,
+         help=''),
 }
 
 if not hasattr(os, 'chmod'):

@@ -39,6 +39,8 @@ import com.example.pepperapp.model.Robot;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
+import org.apache.commons.net.ftp.FTPCmd;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +119,7 @@ public class CreatNewMovementFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         mType = (String) parent.getItemAtPosition(position);
-                        if(mType !=null && !mType.isEmpty()){
+                        if (mType != null && !mType.isEmpty()) {
                             mRecordMovement.setEnabled(true);
                         }
                     }
@@ -170,15 +172,23 @@ public class CreatNewMovementFragment extends Fragment {
                     //String id = "mvt_" + mJsonParseMovementLIst.getMovementList().get(MovementType.valueOf(mType)).size();
                     String id = mvtIDGenerator();
                     //mUICommand.sendCommandToServer(UICommand.UIRequest.GENERATE_ID,id, getContext());
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE, id, getContext());
+                    mUICommand.sendCommandToServer(FTPCmd.REST,"/"+id, getContext());
+                    //mUICommand.sendCommandToServer(UICommand.UIRequest.ACTIVATE_ANIMATION_MODE,id, getContext());
                     try {
-                        Thread.currentThread().sleep(1000);
+                        Thread.currentThread().sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    //Log.d("Reply", "" + mUICommand.feedbackFromServer());
+                    Log.d("Reply", "" + mUICommand.feedbackFromServer());
                     if (mUICommand.feedbackFromServer().equals("200 Animation mode is on".trim())) {
                         Toast.makeText(getContext(), "Animation mode is on", Toast.LENGTH_SHORT).show();
+                        //mUICommand.sendCommandToServer(UICommand.UIRequest.ID,id, getContext());
+                        //try {
+                          //  Thread.currentThread().sleep(1000);
+                        //} catch (InterruptedException e) {
+                          //  e.printStackTrace();
+                        //}
+                        //Log.d("Reply", "" + mUICommand.feedbackFromServer());
                         mStopRecordMovement.setEnabled(true);
                     }
 
@@ -211,6 +221,7 @@ public class CreatNewMovementFragment extends Fragment {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    Log.d("Reply", "" + mUICommand.feedbackFromServer());
                     if (mUICommand.feedbackFromServer().equals("200 Animation mode is off".trim())) {
                         Toast.makeText(getContext(), "Animation mode is off", Toast.LENGTH_SHORT).show();
                         mSaveMovement.setEnabled(true);
@@ -226,7 +237,7 @@ public class CreatNewMovementFragment extends Fragment {
             public void onClick(View v) {
                 if (ConnectToRobotFragment.getmFtpClient() != null && ConnectToRobotFragment.getmFtpClient().isConnectionSuccessful() && ConnectToRobotFragment.getmFtpClient().isLoginSuccessful()) {
                     String id = mvtIDGenerator();
-                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT, id, getContext());
+                    mUICommand.sendCommandToServer(UICommand.UIRequest.SAVE_MOVEMENT,"null", getContext());
                     try {
                         Thread.currentThread().sleep(300);
                     } catch (InterruptedException e) {
@@ -277,16 +288,16 @@ public class CreatNewMovementFragment extends Fragment {
         ConnectionDialog noConnectionAlert = new ConnectionDialog("Demo Video", "Yes", "No", "Would you like to add a demo Video for the robot performing this exercise ?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(which == AlertDialog.BUTTON_POSITIVE){
+                if (which == AlertDialog.BUTTON_POSITIVE) {
                     Intent openGallery = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                     startActivityForResult(openGallery, REQUEST_CAMERA);
-                }else{
+                } else {
 
                 }
             }
         });
 
-                noConnectionAlert.show(getFragmentManager(), "noConnectionAlert");
+        noConnectionAlert.show(getFragmentManager(), "noConnectionAlert");
     }
 
     @Override

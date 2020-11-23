@@ -81,7 +81,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:elevation="8dp"
-                android:text="Movements"
+                android:text="Exercises"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="17dp"></TextView>
         </LinearLayout>
@@ -112,7 +112,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:elevation="8dp"
-                android:text="Activities"
+                android:text="Sessions"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="17dp"></TextView>
         </LinearLayout>

@@ -30,8 +30,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation files('/home/moufdi_taha/Downloads/commons-net-3.6-bin/commons-net-3.6/commons-net-3.6.jar')
-    //implementation files('C:\\Users\\test\\Documents\\commons-net-3.6-bin\\commons-net-3.6\\commons-net-3.6.jar')
+    implementation fileTree(dir: 'C:\\Users\\Moufd\\Documents\\commons-net-3.7-bin\\commons-net-3.7', include: ['*.aar', '*.jar'], exclude: [])
+    //implementation files('/home/moufdi_taha/Downloads/commons-net-3.6-bin/commons-net-3.6/commons-net-3.6.jar')
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
