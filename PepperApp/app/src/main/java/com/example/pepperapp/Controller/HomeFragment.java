@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -31,7 +32,7 @@ public class HomeFragment extends Fragment {
     private ImageView mMonitoring;
     private TextView mConnectionStatus;
     private SharedPreferences mSharedPreferences;
-    private ConnectionDialog mRobotInfo;
+    public  ConnectionDialog mRobotInfo;
     private ImageView mImageInfo;
     private View mView;
     @Nullable
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
         this.mView = inflater.inflate(R.layout.home_fragment,container,false);
         this.mExercise = mView.findViewById(R.id.movements);
         this.mActivities = mView.findViewById(R.id.activities);
+        this.mMonitoring = mView.findViewById(R.id.monitoring);
         this.mImageInfo =(ImageView)mView.findViewById(R.id.img_info);
         this.mConnectionStatus =(TextView)mView.findViewById(R.id.connected_to);
         this.mSharedPreferences = getActivity().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
@@ -77,6 +79,13 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent mMvtListActivity = new Intent(getActivity(),MovementCategoryActivity.class);
                 startActivity(mMvtListActivity);
+            }
+        });
+
+        mMonitoring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"This feature has not been\n      yet implemented",Toast.LENGTH_SHORT).show();
             }
         });
 

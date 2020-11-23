@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.pepperapp.R;
 import com.example.pepperapp.model.JsonParseRobotList;
@@ -95,10 +96,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mConnectToRobotFragment, "connectToRobotFragment").commit();
                 break;
             case R.id.settings:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mSettingsFragment, "settingsFragment").commit();
+                Toast.makeText(getApplicationContext(),"Settings is not yet implemented",Toast.LENGTH_SHORT).show();
+                //this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mSettingsFragment, "settingsFragment").commit();
                 break;
             case R.id.help:
-                this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHelpFragment, "helpFragment").commit();
+                Toast.makeText(getApplicationContext(),"Help is not yet implemented",Toast.LENGTH_SHORT).show();
+                //this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHelpFragment, "helpFragment").commit();
                 break;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -119,21 +122,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString("lastSelectedRobot", gson.toJson(robot)).commit();
     }
-
-    /*@Override
-    protected void onStop() {
-        JsonParseRobotList j = new JsonParseRobotList(this);
-        Robot r = loadRobotPreference();
-        r.setmConnectionStatus(false);
-        saveRobotPreference(r);
-        for (Robot ro : j.getmRobotList()) {
-            if (r.getmConnectionStatus()) {
-                r.setmConnectionStatus(false);
-            }
-        }
-        j.writeToJsonFile(j.javaObjectToJson());
-        super.onStop();
-    }*/
 
     public static HomeFragment getHomeFragment() {
         return mHomeFragment;
