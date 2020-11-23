@@ -4,11 +4,13 @@ public class Robot {
     private String mRobotName;
     private String mRobotIPAddress;
     private String mRobotPort;
+    private Boolean mConnectionStatus;
 
-    public Robot(String mRobotName, String mRobotIPAddress, String port) {
+    public Robot(String mRobotName, String mRobotIPAddress, String port,Boolean mConnectionStatus) {
         this.mRobotName = mRobotName;
         this.mRobotIPAddress = mRobotIPAddress;
         this.mRobotPort = port;
+        this.mConnectionStatus = mConnectionStatus;
     }
 
     public String getmRobotName() {
@@ -33,5 +35,13 @@ public class Robot {
 
     public void setmRobotPort(String port) {
         this.mRobotPort = port;
+    }
+
+    public Boolean getmConnectionStatus() {
+        return mConnectionStatus;
+    }
+
+    public void setmConnectionStatus(Boolean mConnectionStatus) {
+        this.mConnectionStatus = mConnectionStatus;
     }
 }

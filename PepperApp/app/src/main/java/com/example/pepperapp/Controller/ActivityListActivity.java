@@ -23,7 +23,11 @@ import com.example.pepperapp.R;
     public void onBackPressed() {
         if(getSupportFragmentManager().findFragmentById(R.id.activity_fragment_container).getTag() == "creatNewActivityFragment"){
             this.getSupportFragmentManager().beginTransaction().replace(R.id.activity_fragment_container,new ListActivityFragment(),"listActivityFragment").commit();
-        } else{
+        } else if(getSupportFragmentManager().findFragmentById(R.id.activity_fragment_container).getTag()=="playActivity"){
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.activity_fragment_container,new ActivityFragment(),"ActivityFragment").commit();
+        }else if (getSupportFragmentManager().findFragmentById(R.id.activity_fragment_container).getTag()=="ActivityFragment"){
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.activity_fragment_container,new ListActivityFragment(),"listActivityFragment").commit();
+        }else{
             super.onBackPressed();
         }
     }

@@ -1,17 +1,23 @@
 package com.example.pepperapp.model;
 
+import android.net.Uri;
+
 public class Movement {
-    //ksdjbgkfdgbd
-    private int mMovementId;
+
+    private String mMovementId;
     private String mMovementName;
     private MovementType mMovementType;
     private String mMovementDescription;
+    private String mUri;
+    //private List<HashMap<JointType, Float>> mMove;
 
-    public Movement(int mMovementId,String mMovementName,MovementType mMovementType,String mMovementDescription){
+    public Movement(String mMovementId, String mMovementName, MovementType mMovementType, String mMovementDescription,String uri) {
         this.mMovementId = mMovementId;
         this.mMovementName = mMovementName;
         this.mMovementType = mMovementType;
         this.mMovementDescription = mMovementDescription;
+        this.mUri = uri;
+        //this.mMove = new ArrayList<>();
     }
 
     public String getmMovementName() {
@@ -39,12 +45,19 @@ public class Movement {
         this.mMovementDescription = mMovementDescription;
     }
 
-    public int getmMovementId() {
+    public String getmMovementId() {
         return mMovementId;
     }
 
-    public void setmMovementId(int mMovementId) {
+    public void setmMovementId(String mMovementId) {
         this.mMovementId = mMovementId;
     }
 
+    public String getmURI() {
+        return mUri;
+    }
+
+    public void setmURI(String mURI) {
+        this.mUri = mURI;
+    }
 }

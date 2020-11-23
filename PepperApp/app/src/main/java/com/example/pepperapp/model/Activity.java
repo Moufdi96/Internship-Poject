@@ -1,5 +1,7 @@
 package com.example.pepperapp.model;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class Activity {
     private String mActivityDescription;
     private List<Movement> mActivityMovements;
 
-    public Activity(String mActivityName,List<Movement> mActivityMovements) {
+    public Activity(String mActivityName, List<Movement> mActivityMovements) {
         this.mActivityName = mActivityName;
         this.mActivityDescription = mActivityDescription;
         this.mActivityMovements = mActivityMovements;
@@ -40,15 +42,15 @@ public class Activity {
         this.mActivityMovements = mActivityMovements;
     }
 
-    public void removeMovementFromActivity(int Id){ //id = index in the movement list
+    public void removeMovementFromActivity(int Id) { //id = index in the movement list
         mActivityMovements.remove(Id);
     }
 
-    public void addMovementToActivity(Movement movement){
+    public void addMovementToActivity(Movement movement) {
         mActivityMovements.add(movement);
     }
 
-    public void addMovementToActivity(int movementId,String movementName,MovementType movementType,String movementDescription){
-        mActivityMovements.add(new Movement(movementId,movementName,movementType,movementDescription));
+    public void addMovementToActivity(String movementId, String movementName, MovementType movementType, String movementDescription, String uri) {
+        mActivityMovements.add(new Movement(movementId, movementName, movementType, movementDescription, uri));
     }
 }

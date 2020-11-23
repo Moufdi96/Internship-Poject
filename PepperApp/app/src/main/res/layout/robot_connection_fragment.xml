@@ -23,13 +23,13 @@
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardview1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:id="@+id/cardview1"
-            app:cardBackgroundColor="@color/colorAccent"
-            android:visibility="invisible"
             android:layout_marginRight="20dp"
+            android:visibility="invisible"
+            app:cardBackgroundColor="@color/colorAccent"
 
             app:cardCornerRadius="50dp">
 
@@ -44,10 +44,10 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardview2"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:visibility="invisible"
-            android:id="@+id/cardview2"
             app:cardBackgroundColor="@color/colorAccent"
             app:cardCornerRadius="50dp">
 
@@ -64,29 +64,71 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/robot_list"
-        android:layout_width="350dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:choiceMode="multipleChoice"
-        android:listSelector="@color/colorAccent"></ListView>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/connect_button"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="55dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="50dp">
-
-        <ImageView
+        <TextView
+            android:id="@+id/no_robot_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_link_black_24dp"></ImageView>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:text="No Robots added so far\n click the plus button to create a new one"
+            android:textSize="17dp"
+            android:visibility="invisible">
+
+        </TextView>
+
+        <ListView
+            android:id="@+id/robot_list"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:choiceMode="multipleChoice"
+            android:listSelector="@color/colorAccent"
+            android:visibility="invisible"></ListView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/last_connected_robot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Select a Robot"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"></TextView>
+
+        <Switch
+            android:id="@+id/connect_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:checked="false"></Switch>
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_robot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"
+        android:elevation="10dp"
+        android:src="@drawable/plus"
+        android:visibility="visible"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
 
 </LinearLayout>
